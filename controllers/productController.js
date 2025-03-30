@@ -30,3 +30,24 @@ exports.getProductById = async (req,res) => {
         });
     }
 };
+
+//get product details by its name
+exports.getProductByName = async (req, res) => {
+    try {
+        const productName = req.params.name;
+        const product = await Product.findOne({ ProductName: { $regex: new RegExp("^" + productName + "$", "i") } });
+
+        if (!product) {
+            return res.status(404).json({ 
+                message: "Product name not found" 
+            });
+        }
+
+        res.status(200).json(product);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching product name", 
+            error: error.message 
+        });
+    }
+};

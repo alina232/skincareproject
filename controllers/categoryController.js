@@ -34,3 +34,24 @@ exports.getCategoryById = async (req,res) => {
         });
     }
 };
+
+//get category details by their name
+exports.getCategoryByName = async (req, res) => {
+    try {
+        const categoryName = req.params.name;
+        const category = await Category.findOne({ CategoryName: { $regex: new RegExp("^" + categoryName + "$", "i") } });
+
+        if (!category) {
+            return res.status(404).json({ 
+                message: "Category name not found" 
+            });
+        }
+
+        res.status(200).json(category);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching category name", 
+            error: error.message 
+        });
+    }
+};

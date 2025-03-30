@@ -32,3 +32,24 @@ exports.getBrandById = async (req,res) => {
         });
     }
 };
+
+//get brand details by their name
+exports.getBrandByName = async (req, res) => {
+    try {
+        const brandName = req.params.name;
+        const brand = await Brand.findOne({ BrandName: { $regex: new RegExp("^" + brandName + "$", "i") } });
+
+        if (!brand) {
+            return res.status(404).json({ 
+                message: "Brand not found" 
+            });
+        }
+
+        res.status(200).json(brand);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching brand", 
+            error: error.message 
+        });
+    }
+};

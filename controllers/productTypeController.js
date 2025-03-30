@@ -1,5 +1,7 @@
 const ProductType = require("../models/productType");
 
+
+//get the list of all product types
 exports.getProductTypes = async (req, res) => {
     try{
         const productTypes = await ProductType.find();
@@ -12,6 +14,7 @@ exports.getProductTypes = async (req, res) => {
     }
 };
 
+//get the details of product type by its id
 exports.getProductTypeById = async (req,res) => {
     const { id } = req.params;
         try{
@@ -29,4 +32,26 @@ exports.getProductTypeById = async (req,res) => {
                 error: error.message
             });
         }
+};
+
+
+//get details of product type by its name
+exports.getProductTypeByName = async (req,res) => {
+    try {
+        const productTypeName = req.params.name;
+        const productType = await ProductType.findOne({ ProductTypeName: { $regex: new RegExp("^" + productTypeName + "$", "i") } });
+
+        if (!productType) {
+            return res.status(404).json({ 
+                message: "Product type name not found" 
+            });
+        }
+
+        res.status(200).json(productType);
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error fetching product type name", 
+            error: error.message 
+        });
+    }
 };
