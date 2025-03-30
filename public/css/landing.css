@@ -1,0 +1,464 @@
+*{
+    margin: 0;
+    font-family: "Poppins";
+}
+/* For navigation bar */
+.nav-header{
+    box-sizing: border-box;
+    margin: 1rem;
+}
+
+.navbar {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    font-family: "Poppins";
+}
+
+.nav-links {
+    height: 100%;
+}
+
+.nav-links ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links li a {
+    display: block;
+    text-decoration: none;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    color: black;
+    font-size: 15px;
+}
+
+.nav-links li:hover {
+    background-color: #D3A6F2;
+    color: white;
+}
+
+.nav-links li:hover a {
+    
+    color: white;
+}
+
+.hamburger-menu {
+    position: absolute;
+    top: .75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+}
+
+.hamburger-menu .bar {
+    height: 3px;
+    width: 100%;
+    background-color: black;
+    border-radius: 10px;
+}
+
+@media (max-width: 800px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hamburger-menu {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        width: 100%;
+    }
+
+    .nav-links ul {
+        width: 100%;
+        flex-direction: column;
+        background-color: #D3A6F2;
+    }
+
+    .nav-links ul li {
+        text-align: center;
+    }
+
+    .nav-links ul li a {
+        padding: .5rem 1rem;
+        color: white;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+}
+
+
+/* For hero section image slideshow */
+#banner-section{
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+
+/* Remove any margin or padding from the header */
+header {
+  margin: 0;
+  padding: 0;
+}
+
+/* Make sure hero-section is aligned with the header */
+#hero-section {
+  margin-top: 0;  /* Ensure no top margin */
+  padding-top: 0; /* Remove any padding if needed */
+}
+
+/* If there is any margin in the body, remove it as well */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide the images by default */
+.mySlides {
+    display: none;
+    margin: auto;
+    width: 100%;    
+    background-color: #f0f0f0;;
+}
+
+.mySlides:first-child{
+    display: block;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0;
+    background-color: #D3A6F2;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+
+  }
+
+  #dots {
+    width: 100px;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -50px;
+  }
+  
+  .active, .dot:hover {
+    background-color: #D3A6F2;
+  }
+  
+  /* Fading animation */
+  .fade {
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+
+  /* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+    .prev, .next {font-size: 11px}
+  }
+
+/* For categories section */
+.category-link{
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.categories-collection{
+    background-color: #f0f0f0;
+}
+
+.section-header{
+    text-align: center;
+}
+
+
+.category-list{
+    
+    height: 400px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.category:hover{
+    cursor: pointer;
+}
+
+
+.category img{
+    width: 300px;
+    height: 300px;
+}
+
+.category-name{
+    font-size: 18px;
+    text-align: center;
+    font-weight: 600;
+}
+
+
+
+/* For Deals of the Day section */
+
+#deals-of-month{
+    padding-top: 30px;
+}
+
+
+.time-countdown{
+    margin: 0 auto;
+    padding-top: 20px;
+    width: 200px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas: "day-counter hour-counter minute-counter second-counter"
+    "days hours minutes seconds";
+}
+
+.box-counter{
+    background-color: #f0f0f0;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+}
+
+.timer{
+    margin: 0 auto;
+}
+
+
+.text-time{
+    font-size: 12px;
+    padding: 10px;
+}
+
+.shop-now{
+    margin: 0 auto;
+    width: 100px;
+    padding-left: 60px;
+    font-size: 12px;
+    font-weight: 600;
+    
+}
+
+.shop-now a{
+    text-decoration: underline;
+    color: #008080;
+}
+
+.deals-image{
+    margin: 0 auto;
+    width: 500px;
+}
+
+#day-counter{
+    grid-area: day-counter;
+}
+
+#hour-counter{
+    grid-area: hour-counter;
+}
+
+#minute-counter{
+    grid-area: minute-counter;
+}
+
+#second-counter{
+    grid-area: second-counter;
+}
+
+#days{
+    grid-area: days;
+}
+
+#hours{
+    grid-area: hours;
+}
+
+#minutes{
+    grid-area: minutes;
+}
+
+#seconds{
+    grid-area: seconds;
+}
+
+/* For Subscribtion Section */
+
+#subscribtion-section{
+    background-color: #f0f0f0;
+    height: 190px;
+}
+
+.offers-subscribe{
+    margin: 0 auto;
+    width: 700px;
+    padding-top: 50px;
+    text-align: center;
+}
+
+.email-subscribe{
+    display: inline-block;
+}
+
+#email-subscribeInput{
+    border: none;
+    border-bottom:2px solid #D3A6F2;
+    background-color: #f0f0f0;
+    width: 350px;
+    margin-left: 50px;
+    padding-top: 20px;
+}
+
+
+button:hover{
+    cursor: pointer;
+}
+
+iframe {
+    padding: 10px;
+    height: 350px;
+    width: 300px;
+}
+
+footer {
+    background-color: #D3A6F2;
+    color: white;
+    /* padding: 50px 0 20px; */
+    font-family: Arial, sans-serif;
+    padding-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 10px;
+}
+
+.footer-section h3 {
+    color: #fff;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    position: relative;
+}
+
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #444f36;
+    position: relative;
+}
+
+input{
+    width: 400px;
+    height: 30px;
+    padding-right: 5px;
+}
+
+textarea{
+    padding: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-section {
+        margin-bottom: 30px;
+    }
+
+}
