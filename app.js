@@ -1,11 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+
+// Set EJS as the view engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); // Set the path to the views folder
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 //mongoose db connection
 mongoose.connect('mongodb://localhost:27017/SkinCareProject1',{useNewUrlParser: true},{useUnifiedTopology: true});
