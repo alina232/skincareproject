@@ -12,25 +12,38 @@
 <body>
     <header>
         <div class="nav-header">
-            <nav class="navbar">
-                <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
-                <a href="#" class="hamburger-menu">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </a>
-                <div class="nav-links">
-                    <ul>
-                        <li><a href="index.html"> Home</a></li>
-                        <li><a href=""> Products</a></li>
-                        <li><a href=""> Sale</a></li>
-                        <li><a id="guest-profile" href=""> User Profile</a></li>
-                        <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li>
-                    </ul>
-                </div>
-            </nav>
+          <nav class="navbar">
+            <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
+  
+            <a href="#" class="hamburger-menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </a>
+  
+            <div class="nav-links">
+              <ul>
+                <li><a href=""> Home</a></li>
+                <li><a href=""> Categories</a></li>
+                <li><a href="/brands/list"> Brands</a></li>
+                <li><a href=""> Product</a></li>
+                <!-- <li><a id="guest-profile" href=""> User Profile</a></li>   -->
+                <!-- <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li> -->
+              </ul>
+            </div>
+           <!-- Added Search Box -->
+        <div class="search-container">
+          <form action="/search" method="GET">
+          <input type="text" id="search-box" name="query" placeholder="Search...">
+          <button type="submit" id="search-button" class="search-button">🔍</button>
+        </form>
         </div>
-    </header>
+  
+        <!-- Login Button moved here -->
+        <a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a>
+          </nav>
+        </div>
+      </header>
 
     <div class="container">
         <h1 class="product-category">Brand Listing</h1>

@@ -75,3 +75,41 @@ exports.getProductsByBrand = async (req, res) => {
         });
     }
 };
+
+
+exports.searchProducts = async (req, res) => {
+  const { query } = req.query;  // Retrieve the search query from the URL
+
+  // Check if the query is empty or undefined
+  if (!query || query.trim() === "") {
+    return res.render("searchResults", {
+      message: "Please enter a search term.",
+      query: "",
+      products: []
+    });
+  }
+
+  try {
+    // Perform case-insensitive search using $regex
+    const products = await Product.find({
+      ProductName: { $regex: query, $options: 'i' }  // 'i' for case-insensitive search
+    });
+
+    // If no products are found
+    if (products.length === 0) {
+      return res.render("searchResults", {
+        message: "No products found matching your search.",
+        query: query,
+        products: []
+      });
+    }
+
+    // Render the search results with the products
+    res.render("searchResults", {
+      products: products,
+      query: query
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching products", error: err.message });
+  }
+};
