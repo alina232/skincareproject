@@ -44,6 +44,8 @@ app.get('/product-types/name/:name', productTypeController.getProductTypeByName)
 app.get('/products/list', productController.getProducts);
 app.get('/products/:id', productController.getProductById);
 app.get('/products/name/:name', productController.getProductByName);
+app.get('/products/brand/:brandId', productController.getProductsByBrand);
+
 
 app.get('/', (req, res) => {
     res.render('index'); // This will render views/index.ejs
