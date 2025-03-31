@@ -37,8 +37,10 @@
           </div>
          <!-- Added Search Box -->
       <div class="search-container">
-        <input type="text" id="search-box" placeholder="Search...">
+        <form action="/search" method="GET">
+        <input type="text" id="search-box" name="query" placeholder="Search...">
         <button type="submit" id="search-button" class="search-button">🔍</button>
+      </form>
       </div>
 
       <!-- Login Button moved here -->

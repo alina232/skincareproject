@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <style>
+        .search-result-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .search-result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        .card-img-top {
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px 8px 0 0;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .product-price {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .no-results {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+        .search-header {
+            background-color: #f8f9fa;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-header">
+          <nav class="navbar">
+            <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
+  
+            <a href="#" class="hamburger-menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </a>
+  
+            <div class="nav-links">
+              <ul>
+                <li><a href=""> Home</a></li>
+                <li><a href=""> Categories</a></li>
+                <li><a href="/brands/list"> Brands</a></li>
+                <li><a href=""> Product</a></li>
+                <!-- <li><a id="guest-profile" href=""> User Profile</a></li>   -->
+                <!-- <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li> -->
+              </ul>
+            </div>
+           <!-- Added Search Box -->
+        <div class="search-container">
+          <form action="/search" method="GET">
+            <input type="text" id="search-box" name="query" placeholder="Search...">
+            <button type="submit" id="search-button" class="search-button">🔍</button>
+          </form>
+        </div>
+  
+        <!-- Login Button moved here -->
+        <a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a>
+          </nav>
+        </div>
+      </header>
+
+ <!-- Search Header -->
+ <div class="search-header">
+    <h2>Search Results for "<%= query %>"</h2>
+</div>
+
+<div class="container">
+    <% if (products.length === 0) { %>
+        <p class="no-results">No results found for your search. Please try again with different keywords.</p>
+    <% } else { %>
+        <div class="row">
+            <% products.forEach(product => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card search-result-card">
+                      
+                        <div class="card-body">
+                            <h5 class="product-title"><%= product.ProductName %></h5>
+                            <p class="product-price">$<%= product.Price %></p>
+                            <a href="/products/<%= product.ProductId %>" class="btn btn-primary btn-block">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    <% } %>
+</div>
+
+<!-- Bootstrap JS and Popper.js (for any Bootstrap components like modals) -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

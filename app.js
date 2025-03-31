@@ -53,6 +53,8 @@ app.get('/', (req, res) => {
     res.render('index'); // This will render views/index.ejs
 });
 
+app.get('/search', productController.searchProducts);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

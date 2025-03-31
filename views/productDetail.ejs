@@ -9,29 +9,59 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <title>Product Detail</title>
+  <style>
+    .review-section {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+#reviews-list .review-item {
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+#reviews-list .review-rating {
+  color: #f39c12;
+  font-size: 1rem;
+}
+
+  </style>
 </head>
 <body>
-  <header>
-    <div class="nav-header">
-      <nav class="navbar">
-        <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
-        <a href="#" class="hamburger-menu">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
-        </a>
-        <div class="nav-links">
-          <ul>
-            <li><a href="landingPage.html">Home</a></li>
-            <li><a href="landingPage.html#product-newin">Products</a></li>
-            <li><a href="contractor_listing.html">Contractor Listing</a></li>
-            <li><a id="guest-profile" href="UserProfile.html">User Profile</a></li>  
-            <li><a id="login-button" href="#">LogIn</a></li>
-          </ul>
+    <header>
+        <div class="nav-header">
+          <nav class="navbar">
+            <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
+  
+            <a href="#" class="hamburger-menu">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </a>
+  
+            <div class="nav-links">
+              <ul>
+                <li><a href=""> Home</a></li>
+                <li><a href=""> Categories</a></li>
+                <li><a href="/brands/list"> Brands</a></li>
+                <li><a href=""> Product</a></li>
+                <!-- <li><a id="guest-profile" href=""> User Profile</a></li>   -->
+                <!-- <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li> -->
+              </ul>
+            </div>
+           <!-- Added Search Box -->
+        <div class="search-container">
+          <form action="/search" method="GET">
+            <input type="text" id="search-box" name="query" placeholder="Search...">
+            <button type="submit" id="search-button" class="search-button">🔍</button>
+          </form>
         </div>
-      </nav>
-    </div>
-  </header>
+  
+        <!-- Login Button moved here -->
+        <a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a>
+          </nav>
+        </div>
+      </header>
   <div class="container my-5">
     <div class="row">
       <!-- Left side - Product Image -->
@@ -52,7 +82,7 @@
             <i class="bi bi-star-fill mx-1"></i>
             <i class="bi bi-star-half mx-1"></i>(5)
           </p>
-          <p><i class="bi bi-water mx-2 fs-4"></i><span>Extra Soft</span></p>
+          <p class="mb-3"><%= product.Details %></p>
       
           <!-- Quantity and Add to Cart Button -->
           <div class="row d-flex flex-row font-weight-bold">
@@ -68,6 +98,34 @@
             </div>
           </div>
         </div>
+        <!-- Review Section -->
+<div class="review-section mt-5">
+    <h5 class="fw-bold">Add a Review</h5>
+    <form id="review-form" class="my-3">
+      <div class="mb-3">
+        <label for="review-text" class="form-label">Your Review</label>
+        <textarea class="form-control" id="review-text" rows="3" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+  
+    <!-- Reviews List -->
+    <h5 class="mt-5 fw-bold">Reviews</h5>
+    <div id="reviews-list" class="mt-3">
+        <% if (reviews && reviews.length === 0) { %>
+            <p class="text-muted">No reviews yet. Be the first to review!</p>
+        <% } else if (reviews && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <div class="review-item border p-3 mb-2 rounded">
+                    <p class="fw-bold mb-1"><%= review.UserID || 'Anonymous' %></p>
+                    <p><%= review.Review %></p>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p class="text-muted">Unable to load reviews.</p>
+        <% } %>
+    </div>
+  </div>
       </div>
       </div>
   </div>
