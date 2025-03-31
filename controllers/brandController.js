@@ -4,7 +4,6 @@ const Brand = require("../models/brand");
 exports.getBrands = async (req, res) => {
     try {
         const brands = await Brand.find(); // Fetch all brands from MongoDB
-        console.log(brands);
         res.render('brands', { brands });
     } catch (error) {
         return res.status(500).json({ 

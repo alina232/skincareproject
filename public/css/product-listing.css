@@ -167,11 +167,7 @@
     text-align: center;
   }
   
-  .product-price{
-    color: orangered;
-    font-weight: 600;
-  }
-  
+ 
   .btn {
     cursor: pointer;
     background: #D3A6F2;
@@ -180,7 +176,7 @@
     color: white;
     font-size: 15px;
     width: 100px;
-    height: 30px;
+    height: 40px;
     position: right;
     letter-spacing: 1px;
     display: inline-block;
@@ -193,7 +189,7 @@
     color: #D3A6F2;
     font-size: 15px;
     width: 100px;
-    height: 30px;
+    height: 40px;
     position: right;
     letter-spacing: 1px;
     font-weight: bold;
