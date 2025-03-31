@@ -71,3 +71,22 @@ exports.getProductsByBrand = async (req, res) => {
         });
     }
 };
+
+exports.getProductsByCategory = async (req, res) => {
+    try {
+        const { categoryId } = req.params; // Extract brandId from URL params
+        const products = await Product.find({ CategoryId: categoryId }); // Find products by brandId
+
+        if (products.length === 0) {
+            return res.status(404).json({ 
+                message: "No products found for this brand" 
+            });
+        }
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error fetching products for the category',
+            error: error.message
+        });
+    }
+};
