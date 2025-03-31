@@ -22,7 +22,11 @@ exports.getProductById = async (req,res) => {
                 error: error.message
             });
         }
-        res.render('productDetail', { product });
+
+         // Ensure that reviews are retrieved along with the product
+    const reviews = product.Reviews || [];  // Fallback to empty array if no reviews
+
+        res.render('productDetail', { product , reviews});
     } catch(error) {
         return res.status(500).json({
             message: "Error fetching Product id",
