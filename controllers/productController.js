@@ -53,21 +53,21 @@ exports.getProductByName = async (req, res) => {
 };
 
 
-//get list of product by same brand 
 exports.getProductsByBrand = async (req, res) => {
-    try{
-        const { brandId } = req.params;
-        const products = await Product.find({ BrandID: brandId});
-        if(products.length === 0){
-            return res.status(400).json({
-                message: "No products found for this Brand"
-            });
+    try {
+        const { brandId } = req.params; // Extract brandId from URL params
+        const products = await Product.find({ BrandID: brandId }); // Find products by brandId
+
+        if (products.length === 0) {
+            return res.render('productListing', { message: 'No products found for this brand', brandId });
         }
-        res.status(200).json(products);
-    } catch(error){
-        res.status(500).json({ 
-            message: "Error fetching product list by this Brand", 
-            error: error.message 
+
+        // Render the products on the productListing page, passing the products and brandId
+        res.render('productListing', { products, brandId });
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error fetching products for the brand',
+            error: error.message
         });
     }
 };
