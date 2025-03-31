@@ -56,7 +56,7 @@ exports.getProductByName = async (req, res) => {
     }
 };
 
-
+//get product details by its brand
 exports.getProductsByBrand = async (req, res) => {
     try {
         const { brandId } = req.params; // Extract brandId from URL params
@@ -114,6 +114,7 @@ exports.searchProducts = async (req, res) => {
   }
 };
 
+//get product list by category
 exports.getProductsByCategory = async (req, res) => {
     try {
         const { categoryId } = req.params; // Extract brandId from URL params
@@ -128,6 +129,26 @@ exports.getProductsByCategory = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the category',
+            error: error.message
+        });
+    }
+};
+
+//get product list by product type
+exports.getProductsByProductType = async (req, res) => {
+    try {
+        const { productTypeId } = req.params; 
+        const products = await Product.find({ ProductTypeId: productTypeId });
+
+        if (products.length === 0) {
+            return res.status(404).json({ 
+                message: "No products found for this product type" 
+            });
+        }
+        res.status(200).json(products);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Error fetching products for the product type',
             error: error.message
         });
     }
