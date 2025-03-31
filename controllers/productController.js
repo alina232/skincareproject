@@ -125,7 +125,7 @@ exports.getProductsByCategory = async (req, res) => {
                 message: "No products found for this brand" 
             });
         }
-        res.status(200).json(products);
+        res.render('productListing', { products, categoryId });
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the category',
@@ -145,7 +145,7 @@ exports.getProductsByProductType = async (req, res) => {
                 message: "No products found for this product type" 
             });
         }
-        res.status(200).json(products);
+        res.render('productListing', { products, productTypeId });
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the product type',

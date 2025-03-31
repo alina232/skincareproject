@@ -5,7 +5,7 @@ const ProductType = require("../models/productType");
 exports.getProductTypes = async (req, res) => {
     try{
         const productTypes = await ProductType.find();
-        res.status(200).json(productTypes);
+        res.render('productTypes', { productTypes });
     } catch (error) {
         res.status(500).json({ 
             message: "Error fetching product types", 
