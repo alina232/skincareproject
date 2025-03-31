@@ -22,7 +22,7 @@ exports.getProductById = async (req,res) => {
                 error: error.message
             });
         }
-        res.status(200).json(product);
+        res.render('productDetail', { product });
     } catch(error) {
         return res.status(500).json({
             message: "Error fetching Product id",

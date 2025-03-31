@@ -40,8 +40,8 @@
                             <img src="/images/brand-placeholder.jpg" alt="<%= product.ProductName %>" height="300px" width="300px">
                             <h3 class="product-title"><%= product.ProductName %></h3>
                             <p class="product-type"><%= product.Details %></p>
-                            <a href="productdetail.html?productId=<%= product.ProductId %>">
-                                <button class="btn">View Product Details</button>
+                            <a href="/products/<%= product.ProductId %>">
+                                <button class="btn">View Product</button>
                             </a>
                         </div>
                     <% }); %>
