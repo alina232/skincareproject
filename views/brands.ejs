@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Listing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,7,8,9&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/product-listing.css"> 
+</head>
+<body>
+    <header>
+        <div class="nav-header">
+            <nav class="navbar">
+                <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
+                <a href="#" class="hamburger-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </a>
+                <div class="nav-links">
+                    <ul>
+                        <li><a href="index.html"> Home</a></li>
+                        <li><a href=""> Products</a></li>
+                        <li><a href=""> Sale</a></li>
+                        <li><a id="guest-profile" href=""> User Profile</a></li>
+                        <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="product-category">Brand Listing</h1>
+        <p class="product-description">Here is a list of all the brands we offer.</p>
+
+        <div id="product">
+            <section class="section-grid">
+                <% if (brands && brands.length > 0) { %>
+                    <% brands.forEach(brand => { %>
+                        <div class="grid-product">
+                            <img src="/images/brand-glossier.jpg" alt="<%= brand.BrandName %>" height="300px" width="300px">
+                            <h3 class="product-title"><%= brand.BrandName %></h3>
+                            <p class="product-type"><%= brand.BrandDetails %></p>
+                            <a href="productdetail.html"><button class="btn">View Products</button></a>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No brands available.</p>
+                <% } %>
+            </section>
+        </div>
+    </div>
+        
+    </div>
+</body>
+</html>
