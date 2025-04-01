@@ -38,6 +38,7 @@
   
       <div class="col-md-6">
         <div class="product-details">
+          <input id="productId" value="<%= product.ProductId %>" hidden>
           <p class="fw-bold mb-3"><%= product.brand %></p>
           <p class="mb-3"><%= product.ProductName %></p>
           <p class="fw-bolder price text-danger">$<%= product.Price %></p>
@@ -68,7 +69,7 @@
         <!-- Review Section -->
 <div class="review-section mt-5">
     <h5 class="fw-bold">Add a Review</h5>
-    <form id="review-form" class="my-3">
+    <form id="review-form" class="my-3" method="POST" action="/products/<%= product.ProductId %>/review">
       <div class="mb-3">
         <label for="review-text" class="form-label">Your Review</label>
         <textarea class="form-control" id="review-text" rows="3" required></textarea>
@@ -101,6 +102,62 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
   <script>
+    document.getElementById("review-form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the default form submission behavior
+
+    var productId = document.getElementById("productId").value;  // Inject productId into JS from EJS template
+    var reviewText = document.getElementById("review-text").value;
+
+    console.log("Product ID:", productId);  // Log productId
+    console.log("Review Text:", reviewText);  
+
+    // Check if the review text is not empty
+    if (!reviewText.trim()) {
+        alert("Please enter a review.");
+        return;
+    }
+
+    // Prepare the data to send to the server
+    var reviewData = {
+        Review: reviewText
+    };
+
+    // Make the AJAX request to submit the review
+    fetch(`/product/${productId}/review`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reviewData),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.message === "Review added successfully") {
+            
+            alert("Review submitted successfully!");
+            location.reload();
+            // You can also append the new review to the review list dynamically, like:
+            let reviewList = document.getElementById("reviews-list");
+            let newReview = document.createElement("div");
+            newReview.classList.add("review-item", "border", "p-3", "mb-2", "rounded");
+            newReview.innerHTML = `<p class="fw-bold mb-1">Anonymous</p><p>${reviewText}</p>`;
+            reviewList.appendChild(newReview);
+        } else {
+            alert("Failed to submit review: " + data.message);
+        }
+    })
+    .catch(error => {
+        console.error("Error submitting review:", error);
+        alert("Error submitting review. Please try again.");
+    });
+});
+
+
     var swiper = new Swiper(".mySwiper", {
       slidesPerView: 1,
       autoplay: {
