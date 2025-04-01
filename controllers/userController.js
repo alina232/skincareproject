@@ -3,30 +3,32 @@ const bcrypt = require("bcryptjs");
 
 //user signup
 exports.signup = async (req, res) => {
-    try{
-        const { UserID, Firstname, Lastname, Email, Password, Address, Contact } = req.body;
+    try {
+        const { Firstname, Lastname, Email, Password, Address, Contact } = req.body;
 
-        //check if user already exixts with the email
-        const userCheck = await User.findOne({Email});
-        if(userCheck) {
+        //check if user already exists with the email
+        const userCheck = await User.findOne({ Email });
+        if (userCheck) {
             return res.status(400).json({
                 message: "Email already exists"
-            })
+            });
         }
+
         //hash the password before saving
         const hashPassword = await bcrypt.hash(Password, 10);
 
         //creating new user and save to db
-        const newUser = new User({UserID, Firstname, Lastname, Email, Password: hashPassword, Address, Contact });
+        const newUser = new User({ Firstname, Lastname, Email, Password: hashPassword, Address, Contact });
         await newUser.save();
+
         res.status(201).json({
-            message : "User sign up successful!"
-        })
-    }catch(error){
+            message: "User sign up successful!"
+        });
+    } catch (error) {
         res.status(500).json({
-            message : "Error occured while signup",
-            error : error.message
-        })
+            message: "Error occurred while signup",
+            error: error.message
+        });
     }
 };
 
