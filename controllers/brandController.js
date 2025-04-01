@@ -4,7 +4,11 @@ const Brand = require("../models/brand");
 exports.getBrands = async (req, res) => {
     try {
         const brands = await Brand.find(); // Fetch all brands from MongoDB
-        res.render('brands', { brands });
+        if (req.session.user) {
+            res.render('brands', { user: req.session.user, brands: brands }); // Pass both user and brands data
+        } else {
+            res.render('brands', { user: null, brands: brands }); // Pass brands data even if user is not logged in
+        }
     } catch (error) {
         return res.status(500).json({ 
             message: "Error fetching brands", 

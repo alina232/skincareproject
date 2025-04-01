@@ -60,7 +60,14 @@ exports.login = async (req, res) => {
             Email: user.Email
         };
 
-    res.redirect('/');
+        // Save session before redirecting
+        req.session.save((err) => {
+            if (err) {
+                return res.status(500).json({ message: "Session saving failed" });
+            }
+            res.redirect('/');
+        });
+        
     } catch (error) {
         res.status(500).json({ 
             message: "Login failed", 
@@ -82,10 +89,7 @@ exports.logout = (req, res) => {
                     error: error.message 
                 });
             }
-            res.status(200).json({ 
-                message: "Logged out successfully",
-                user: loggedOutUser
-            });
+           res.redirect('/');
         });
     } else {
         res.status(400).json({

@@ -5,7 +5,12 @@ const ProductType = require("../models/productType");
 exports.getProductTypes = async (req, res) => {
     try{
         const productTypes = await ProductType.find();
-        res.render('productTypes', { productTypes });
+    
+        if (req.session.user) {
+            res.render('productTypes', { user: req.session.user,productTypes: productTypes }); // Pass both user and brands data
+        } else {
+            res.render('productTypes', { user: null, productTypes: productTypes }); // Pass brands data even if user is not logged in
+        }
     } catch (error) {
         res.status(500).json({ 
             message: "Error fetching product types", 

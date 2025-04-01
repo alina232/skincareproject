@@ -24,9 +24,15 @@ exports.getProductById = async (req,res) => {
         }
 
          // Ensure that reviews are retrieved along with the product
-    const reviews = product.Reviews || [];  // Fallback to empty array if no reviews
+        const reviews = product.Reviews || [];  // Fallback to empty array if no reviews
 
-        res.render('productDetail', { product , reviews});
+        // res.render('productDetail', { product , reviews});
+
+        if (req.session.user) {
+            res.render('productDetail', { user: req.session.user, product: product, reviews:reviews }); // Pass both user and brands data
+        } else {
+            res.render('productDetail', { user: null,product: product, reviews:reviews }); // Pass brands data even if user is not logged in
+        }
     } catch(error) {
         return res.status(500).json({
             message: "Error fetching Product id",
@@ -67,7 +73,13 @@ exports.getProductsByBrand = async (req, res) => {
         }
 
         // Render the products on the productListing page, passing the products and brandId
-        res.render('productListing', { products, brandId });
+        // res.render('productListing', { products, brandId });
+
+        if (req.session.user) {
+            res.render('productListing', { user: req.session.user, products: products, brandId: brandId }); // Pass both user and brands data
+        } else {
+            res.render('productListing', { user: null, products: products, brandId: brandId  }); // Pass brands data even if user is not logged in
+        }
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the brand',
@@ -145,7 +157,13 @@ exports.getProductsByProductType = async (req, res) => {
                 message: "No products found for this product type" 
             });
         }
-        res.render('productListing', { products, productTypeId });
+       
+
+        if (req.session.user) {
+            res.render('productListing', { user: req.session.user, products: products, productTypeId:productTypeId  }); // Pass both user and brands data
+        } else {
+            res.render('productListing', { user: null, products: products, productTypeId: productTypeId  }); // Pass brands data even if user is not logged in
+        }
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the product type',

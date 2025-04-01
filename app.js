@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const path = require("path");
 const session = require('express-session');
+const authMiddleware = require('./middlewares/auth');
 
 dotenv.config();
 
@@ -37,7 +38,7 @@ const userController = require('./controllers/userController');
 
 //ROUTES
 //BRAND 
-app.get('/brands/list',brandController.getBrands);
+app.get('/brands/list', brandController.getBrands);
 app.get('/brands/:id', brandController.getBrandById);
 app.get('/brands/name/:name', brandController.getBrandByName);
 
@@ -64,7 +65,11 @@ app.get('/product-types/:productTypeId/products', productController.getProductsB
 
 //HOMEPAGE AND SEARCH
 app.get('/', (req, res) => {
-    res.render('index');
+    if (req.session.user) {
+        res.render('index', { user: req.session.user }); // Pass user session
+    } else {
+        res.render('index', { user: null });
+    }
 });
 app.get('/search', productController.searchProducts);
 

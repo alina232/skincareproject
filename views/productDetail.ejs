@@ -28,40 +28,7 @@
   </style>
 </head>
 <body>
-    <header>
-        <div class="nav-header">
-          <nav class="navbar">
-            <div id="username-welcome"><p>Welcome! <span id="username"></span></p></div>
-  
-            <a href="#" class="hamburger-menu">
-              <span class="bar"></span>
-              <span class="bar"></span>
-              <span class="bar"></span>
-            </a>
-  
-            <div class="nav-links">
-              <ul>
-                <li><a href="/"> Home</a></li>
-                <li><a href=""> Categories</a></li>
-                <li><a href="/brands/list"> Brands</a></li>
-                <li><a href="/product-types/list"> Product</a></li>
-                <!-- <li><a id="guest-profile" href=""> User Profile</a></li>   -->
-                <!-- <li><a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a></li> -->
-              </ul>
-            </div>
-           <!-- Added Search Box -->
-        <div class="search-container">
-          <form action="/search" method="GET">
-            <input type="text" id="search-box" name="query" placeholder="Search...">
-            <button type="submit" id="search-button" class="search-button">🔍</button>
-          </form>
-        </div>
-  
-        <!-- Login Button moved here -->
-        <a id="login-button" href="#" style="background-color: #D3A6F2; color: white; height: 25px">LogIn</a>
-          </nav>
-        </div>
-      </header>
+  <%- include('header') %>
   <div class="container my-5">
     <div class="row">
       <!-- Left side - Product Image -->
