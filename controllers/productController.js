@@ -29,9 +29,9 @@ exports.getProductById = async (req,res) => {
         // res.render('productDetail', { product , reviews});
 
         if (req.session.user) {
-            res.render('productDetail', { user: req.session.user, product: product, reviews:reviews }); // Pass both user and brands data
+            res.render('productDetail', { user: req.session.user, product: product, reviews:reviews }); 
         } else {
-            res.render('productDetail', { user: null,product: product, reviews:reviews }); // Pass brands data even if user is not logged in
+            res.render('productDetail', { user: null,product: product, reviews:reviews }); 
         }
     } catch(error) {
         return res.status(500).json({
@@ -73,12 +73,11 @@ exports.getProductsByBrand = async (req, res) => {
         }
 
         // Render the products on the productListing page, passing the products and brandId
-        // res.render('productListing', { products, brandId });
-
+    
         if (req.session.user) {
-            res.render('productListing', { user: req.session.user, products: products, brandId: brandId }); // Pass both user and brands data
+            res.render('productListing', { user: req.session.user, products: products, brandId: brandId }); 
         } else {
-            res.render('productListing', { user: null, products: products, brandId: brandId  }); // Pass brands data even if user is not logged in
+            res.render('productListing', { user: null, products: products, brandId: brandId  }); 
         }
     } catch (error) {
         res.status(500).json({
@@ -117,10 +116,13 @@ exports.searchProducts = async (req, res) => {
     }
 
     // Render the search results with the products
-    res.render("searchResults", {
-      products: products,
-      query: query
-    });
+
+
+    if (req.session.user) {
+        res.render('searchResults', { user: req.session.user, products: products, query:query }); 
+    } else {
+        res.render('searchResults', { user: null, products: products, query:query  }); 
+    }
   } catch (err) {
     res.status(500).json({ message: "Error fetching products", error: err.message });
   }
@@ -160,9 +162,9 @@ exports.getProductsByProductType = async (req, res) => {
        
 
         if (req.session.user) {
-            res.render('productListing', { user: req.session.user, products: products, productTypeId:productTypeId  }); // Pass both user and brands data
+            res.render('productListing', { user: req.session.user, products: products, productTypeId:productTypeId  }); 
         } else {
-            res.render('productListing', { user: null, products: products, productTypeId: productTypeId  }); // Pass brands data even if user is not logged in
+            res.render('productListing', { user: null, products: products, productTypeId: productTypeId  }); 
         }
     } catch (error) {
         res.status(500).json({
