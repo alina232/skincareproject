@@ -171,3 +171,53 @@ exports.getProductsByProductType = async (req, res) => {
         });
     }
 };
+
+
+//add review for specific product
+exports.addReview = async (req, res) => {
+    try{
+        const { productId } = req.params;
+        const { Review } = req.body;
+
+        if(!req.session.user || !req.session.user.UserID) {
+            return res.status(400).json({
+                message: "User is not logged in"
+            });
+        }
+
+        const UserID = req.session.user.UserID; //get user id from session
+
+        //check if review is provided
+        if(!Review) {
+            return res.status(400).json({
+                message: "Review is required"
+            });
+        }
+        //getting product by its id
+        const product = await Product.findOne({ProductId: productId});
+        if(!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        //creating new review object
+        const newReview = {
+            UserID: UserID,
+            Review: Review
+        };
+        //add new review to product's review array
+        product.Reviews.push(newReview);
+        await product.save();
+
+        res.status(201).json({
+            message: "Review added successfully",
+            product: product
+        });
+    }catch(error){
+        res.status(500).json({
+            message: "Error adding review",
+            error: error.message
+        });
+    }
+}
