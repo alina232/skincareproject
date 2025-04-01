@@ -35,6 +35,7 @@ const categoryController = require('./controllers/categoryController');
 const productTypeController = require('./controllers/productTypeController');
 const productController = require('./controllers/productController');
 const userController = require('./controllers/userController');
+const cartController = require('./controllers/cartController');
 
 //ROUTES
 //BRAND 
@@ -63,6 +64,9 @@ app.get('/product-types/:productTypeId/products', productController.getProductsB
 
 app.post('/product/:productId/review', productController.addReview);
 
+
+//CART
+app.post('/add', cartController.addItemToCart);
 
 //HOMEPAGE AND SEARCH
 app.get('/', (req, res) => {
