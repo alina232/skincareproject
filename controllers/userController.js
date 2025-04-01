@@ -21,9 +21,7 @@ exports.signup = async (req, res) => {
         const newUser = new User({ Firstname, Lastname, Email, Password: hashPassword, Address, Contact });
         await newUser.save();
 
-        res.status(201).json({
-            message: "User sign up successful!"
-        });
+        res.redirect('/login');
     } catch (error) {
         res.status(500).json({
             message: "Error occurred while signup",
@@ -62,10 +60,7 @@ exports.login = async (req, res) => {
             Email: user.Email
         };
 
-        res.status(200).json({ 
-            message: "Login successful", 
-            user: req.session.user 
-        });
+    res.redirect('/');
     } catch (error) {
         res.status(500).json({ 
             message: "Login failed", 

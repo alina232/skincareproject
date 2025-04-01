@@ -8,6 +8,7 @@ dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Set EJS as the view engine
 app.set('view engine', 'ejs');
@@ -54,6 +55,7 @@ app.get('/product-types/name/:name', productTypeController.getProductTypeByName)
 app.get('/products/list', productController.getProducts);
 app.get('/products/:id', productController.getProductById);
 app.get('/products/name/:name', productController.getProductByName);
+// app.get('/products/brand/:brandId', productController.getProductsByBrand);
 
 app.get('/brand/:brandId/products', productController.getProductsByBrand);
 app.get('/categories/:categoryId/products', productController.getProductsByCategory);
@@ -72,7 +74,13 @@ app.post('/signup', userController.signup);
 app.post('/login', userController.login);
 app.get('/logout', userController.logout);
 
-app.get('/user/:id', userController.getUserById);
+app.get('/login', (req, res)=> {
+    res.render('login');
+});
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
