@@ -98,3 +98,22 @@ exports.logout = (req, res) => {
         });
     }
 };
+
+//get user details by its id
+exports.getUserById = async (req,res) => {
+    try{
+        const { id } = req.params;
+        const user = await User.findOne({ UserID: id });
+        if(!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+        res.status(200).json(user);
+    }catch(error){
+        return res.status(500).json({ 
+            message: "Error fetching user details", 
+            error: error.message 
+        });
+    }
+};
