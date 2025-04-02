@@ -1,15 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
-</head>
-<body>
-    <h1>Welcome to Admin Dashboard</h1>
-    <nav>
-        <a href="/admin/products">View Products</a> | 
-        <a href="/admin/products/add">Add Product</a>
-    </nav>
-</body>
+    
+    <!-- Poppins Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
+
+    <style>
+      body {
+        font-family: 'Poppins', sans-serif;
+        background-color: #f8f8f8;
+        text-align: center;
+      }
+
+      #hero-section h1 {
+        padding: 50px 0;
+        font-size: 2rem;
+        font-weight: 600;
+      }
+
+      .container {
+        background-color: #f0f0f0;
+        padding: 50px 0;
+      }
+
+      .admin-list {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .admin-button {
+        width: 200px;
+        padding: 15px;
+        font-size: 18px;
+        font-weight: 500;
+        background-color: #D3A6F2;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s ease;
+        color: white;
+      }
+
+      .admin-button:hover {
+        background-color: #b98ad4;
+      }
+
+      .admin-link {
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Hero Section -->
+    <section id="hero-section">
+      <div id="banner-section">
+        <h1>Welcome to Admin Dashboard</h1>
+      </div>
+    </section>
+
+    <!-- Admin Options -->
+    <div class="container">
+        <div id="admin-options-section">
+            <section class="admin-collection">
+                <div class="admin-list">
+                  
+                  <a class="admin-link" href="/admin/products">
+                    <button class="admin-button">View Products</button>
+                  </a>
+
+                  <a class="admin-link" href="/admin/products/add">
+                    <button class="admin-button">Add Product</button>
+                  </a>
+
+                  <a class="admin-link" href="">
+                    <button class="admin-button">View Brands</button>
+                  </a>
+
+                  <a class="admin-link" href="">
+                    <button class="admin-button">View Categories</button>
+                  </a>
+
+                  <a class="admin-link" href="">
+                    <button class="admin-button">View Product Types</button>
+                  </a>
+
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+  </body>
 </html>
