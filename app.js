@@ -106,6 +106,7 @@ app.post('/product/:productId/review', productController.addReview);
 //CART
 app.post('/add', cartController.addItemToCart);
 app.get('/cart', cartController.getCartItems);
+app.post("/decrease", cartController.decreaseCartItem);
 
 //User Profile
 app.get('/updateUser', userController.showUpdateForm);

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart</title>
+    <title>My Cart</title>
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
@@ -34,6 +34,10 @@
     
                                 <p>Quantity: <%= item.Quantity %></p>
                                 <p class="total-price">Total: $<%= item.TotalPrice %></p>
+                                <form action="/decrease" method="POST">
+                                    <input type="hidden" name="productId" value="<%= item.ProductId %>">
+                                    <button type="submit" class="decrease-btn">-</button>
+                                </form>
                             </div>
                         </div>
                     </div>

@@ -179,7 +179,7 @@ exports.updateProfile = async (req, res) => {
         await user.save();
 
         // Send a success message and redirect to the profile page (or another route)
-        res.redirect('/');  // Redirect to profile page after update
+        res.redirect('/updateUser');  // Redirect to profile page after update
     } catch (error) {
         res.status(500).json({ message: "Error updating profile", error: error.message });
     }
