@@ -71,9 +71,13 @@ exports.getCartItems = async (req, res) => {
         const cartItems = await Cart.find({UserID: userId}).lean(); //make a js object from the mongoose objects
 
         if(!cartItems || cartItems.length === 0){
-            return res.status(404).json({
-                message: "No items in cart"
-            });
+            return res.render("cart", {
+                user: req.session.user,
+                message: "No items in cart",
+                totalAmount: 0,
+                cartItems: [],
+
+            })
         }
 
         // Fetch product details manually using ProductId (string-based)
