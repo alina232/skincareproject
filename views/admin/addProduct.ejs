@@ -11,41 +11,49 @@
     <h1>Add New Product</h1>
 
     <form action="/admin/products/add" method="POST" enctype="multipart/form-data">
-        <label for="ProductName">Product Name:</label>
-        <input type="text" name="ProductName" required><br>
-
-        <label for="BrandID">Brand:</label>
-        <select name="BrandID" required>
+        <label for="ProductId">Product ID:</label><br />
+        <input type="text" id="ProductId" name="ProductId" placeholder="Enter Product ID" required /><br /><br />
+    
+        <label for="ProductName">Product Name:</label><br />
+        <input type="text" id="ProductName" name="ProductName" placeholder="Enter Product Name" required /><br /><br />
+    
+        <label for="BrandID">Brand:</label><br />
+        <select id="BrandID" name="BrandID" required>
+            <option value="">Select a Brand</option>
             <% brands.forEach(brand => { %>
                 <option value="<%= brand.BrandId %>"><%= brand.BrandName %></option>
             <% }); %>
-        </select><br>
-
-        <label for="CategoryId">Category:</label>
-        <select name="CategoryId" required>
-            <% categories.forEach(category => { %>
-                <option value="<%= category.CategoryId %>"><%= category.CategoryName %></option>
-            <% }); %>
-        </select><br>
-
-        <label for="ProductTypeId">Product Type:</label>
-        <select name="ProductTypeId" required>
+        </select><br /><br />
+    
+        <label for="ProductTypeId">Product Type:</label><br />
+        <select id="ProductTypeId" name="ProductTypeId" required>
+            <option value="">Select a Product Type</option>
             <% productTypes.forEach(type => { %>
                 <option value="<%= type.ProductTypeId %>"><%= type.ProductTypeName %></option>
             <% }); %>
-        </select><br>
-
-        <label for="Details">Details:</label>
-        <textarea name="Details" required></textarea><br>
-
-        <label for="Price">Price:</label>
-        <input type="number" name="Price" required><br>
-
-        <label for="Image">Image:</label>
-        <input type="file" name="Image"><br>
-
+        </select><br /><br />
+    
+        <label for="CategoryId">Category:</label><br />
+        <select id="CategoryId" name="CategoryId" required>
+            <option value="">Select a Category</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.CategoryId %>"><%= category.CategoryName %></option>
+            <% }); %>
+        </select><br /><br />
+    
+        <label for="Details">Product Details:</label><br />
+        <textarea id="Details" name="Details" placeholder="Enter Product Details" required></textarea><br /><br />
+    
+        <label for="Price">Price:</label><br />
+        <input type="number" id="Price" name="Price" placeholder="Enter Price" required /><br /><br />
+    
+        <label for="Image">Product Image:</label><br />
+        <input type="file" id="Image" name="Image" accept="image/*" required /><br /><br />
+    
         <button type="submit">Add Product</button>
     </form>
+    
+    
 
     <a href="/admin/products">Back to Product List</a>
 

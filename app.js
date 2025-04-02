@@ -9,6 +9,7 @@ const authMiddleware = require('./middlewares/authMiddleware');
 dotenv.config();
 
 const app = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -21,7 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //multer image store configuration
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'public/images/');
+        cb(null, 'public/images/'); //location to store the image files
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + path.extname(file.originalname)); // Ensures unique file names
@@ -44,6 +45,12 @@ const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
     limits: { fileSize: 5 * 1024 * 1024 }
+});
+
+// Make `upload` available globally for routes
+app.use((req, res, next) => {
+    req.upload = upload;
+    next();
 });
 
 //session middleware configuration
@@ -130,8 +137,8 @@ app.get('/logout', userController.logout);
 //ADMIN ROUTES
 app.get('/admin', authMiddleware.checkAdmin, adminController.adminPanel); 
 app.get('/admin/products', authMiddleware.checkAdmin, adminController.viewProducts); 
-app.get("/admin/products/add", authMiddleware.checkAdmin, adminController.getProductForm);
-
+app.get('/admin/products/add', authMiddleware.checkAdmin, adminController.getProductForm);
+app.post('/admin/products/add', authMiddleware.checkAdmin, adminController.addNewProduct);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

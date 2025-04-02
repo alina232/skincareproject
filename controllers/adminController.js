@@ -52,3 +52,39 @@ exports.getProductForm = async (req, res) => {
         res.status(500).json({ message: "Error loading product form", error: error.message });
     }
 };
+
+
+//add the product details in the product db
+exports.addNewProduct = (req, res) => {
+    req.upload.single("Image")(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error uploading file", error: err.message });
+        }
+
+        try {
+            const { ProductId, ProductName, BrandID, ProductTypeId, CategoryId, Details, Price } = req.body;
+
+            if (!ProductId || !ProductName || !BrandID || !ProductTypeId || !CategoryId || !Details || !Price) {
+                return res.status(400).json({ message: "All fields are required" });
+            }
+
+            const imagePath = req.file ? `/images/${req.file.filename}` : "";
+
+            const newProduct = new Product({
+                ProductId,
+                ProductName,
+                BrandID,
+                ProductTypeId,
+                CategoryId,
+                Details,
+                Price,
+                Image: imagePath,
+            });
+
+            await newProduct.save();
+            res.redirect("/admin/products");
+        } catch (error) {
+            res.status(500).json({ message: "Error occurred while adding new product", error: error.message });
+        }
+    });
+};
