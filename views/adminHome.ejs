@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, <%= user.Firstname %>!</h1> <!-- Display admin's first name -->
+        <nav>
+            <ul>
+                <li><a href="/admin/products">Manage Products</a></li>
+                <li><a href="/admin/users">Manage Users</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="dashboard">
+        <h2>Admin Dashboard</h2>
+        <p>Here you can manage the products, view user activity, and more!</p>
+
+        <!-- You can display additional stats or data here -->
+        <div class="stats">
+            <div class="stat">
+                <h3>Total Products</h3>
+                <p>500</p>
+            </div>
+            <div class="stat">
+                <h3>Total Users</h3>
+                <p>1000</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

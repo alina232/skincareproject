@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 const multer = require('multer');
 const path = require("path");
 const session = require('express-session');
-const authMiddleware = require('./middlewares/auth');
+const authMiddleware = require('./middlewares/authMiddleware');
 
 dotenv.config();
 
@@ -65,6 +65,8 @@ const productTypeController = require('./controllers/productTypeController');
 const productController = require('./controllers/productController');
 const userController = require('./controllers/userController');
 const cartController = require('./controllers/cartController');
+const adminController = require('./controllers/adminController');
+
 
 //ROUTES
 //BRAND 
@@ -120,6 +122,9 @@ app.get('/register', (req, res) => {
 app.post('/signup', userController.signup);
 app.post('/login', userController.login);
 app.get('/logout', userController.logout);
+
+//ADMIN ROUTES
+app.get('/admin', authMiddleware.checkAdmin, adminController.adminPanel);
 
 
 

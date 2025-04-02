@@ -52,12 +52,29 @@ exports.login = async (req, res) => {
             });
         }
 
+        // Check if the email is for the admin
+        if (Email === 'admin@gmail.com' && Password === 'admin') {
+            req.session.user = {
+                Email: 'admin@gmail.com',
+                Firstname: user.Firstname,
+                Lastname: user.Lastname,
+                Email: user.Email,
+                isAdmin: true
+            };
+
+            return res.json({
+                success: true,
+                redirectUrl: "/admin"  // Redirect to the admin dashboard
+            });
+        }
+
         // Store user session
         req.session.user = {
             UserID: user.UserID,
             Firstname: user.Firstname,
             Lastname: user.Lastname,
-            Email: user.Email
+            Email: user.Email, 
+            isAdmin: false
         };
 
         // Save session before redirecting
