@@ -59,9 +59,7 @@ exports.getCartItems = async (req, res) => {
 
     //chek if the user is logged in
     if(!req.session || !req.session.user) {
-        return res.status(401).json({
-            message: "Please log in"
-        });
+        return res.render('login');
     }
     console.log("Session Data:", req.session.user);
     //getting userID from session

@@ -112,9 +112,7 @@ exports.logout = (req, res) => {
            res.redirect('/');
         });
     } else {
-        res.status(400).json({
-            message : "No user is logged in"
-        });
+        res.render('login');
     }
 };
 
