@@ -128,8 +128,9 @@ app.post('/login', userController.login);
 app.get('/logout', userController.logout);
 
 //ADMIN ROUTES
-app.get('/admin', authMiddleware.checkAdmin, adminController.adminPanel);
-
+app.get('/admin', authMiddleware.checkAdmin, adminController.adminPanel); 
+app.get('/admin/products', authMiddleware.checkAdmin, adminController.viewProducts); 
+app.get("/admin/products/add", authMiddleware.checkAdmin, adminController.getProductForm);
 
 
 const PORT = process.env.PORT || 5000;

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - View Products</title>
+    <link rel="stylesheet" href="/styles.css"> <!-- Optional styling -->
+</head>
+<body>
+
+    <h1>Product List</h1>
+
+    <a href="/admin/products/add">
+        <button>Add Product</button>
+    </a>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Brand</th>
+                <th>Category</th>
+                <th>Product Type</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(product => { %>
+                <tr>
+                    <td><%= product.ProductName %></td>
+                    <td><%= product.BrandName %></td>
+                    <td><%= product.CategoryName %></td>
+                    <td><%= product.ProductTypeName %></td>
+                    <td>$<%= product.Price %></td>
+                    <td>
+                        <a href="/admin/products/edit/<%= product.ProductId %>">Edit</a> | 
+                        <a href="/admin/products/delete/<%= product.ProductId %>" onclick="return confirm('Are you sure?');">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+</body>
+</html>

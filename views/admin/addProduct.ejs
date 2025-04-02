@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+    <h1>Add New Product</h1>
+
+    <form action="/admin/products/add" method="POST" enctype="multipart/form-data">
+        <label for="ProductName">Product Name:</label>
+        <input type="text" name="ProductName" required><br>
+
+        <label for="BrandID">Brand:</label>
+        <select name="BrandID" required>
+            <% brands.forEach(brand => { %>
+                <option value="<%= brand.BrandId %>"><%= brand.BrandName %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="CategoryId">Category:</label>
+        <select name="CategoryId" required>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.CategoryId %>"><%= category.CategoryName %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="ProductTypeId">Product Type:</label>
+        <select name="ProductTypeId" required>
+            <% productTypes.forEach(type => { %>
+                <option value="<%= type.ProductTypeId %>"><%= type.ProductTypeName %></option>
+            <% }); %>
+        </select><br>
+
+        <label for="Details">Details:</label>
+        <textarea name="Details" required></textarea><br>
+
+        <label for="Price">Price:</label>
+        <input type="number" name="Price" required><br>
+
+        <label for="Image">Image:</label>
+        <input type="file" name="Image"><br>
+
+        <button type="submit">Add Product</button>
+    </form>
+
+    <a href="/admin/products">Back to Product List</a>
+
+</body>
+</html>
