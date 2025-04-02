@@ -45,7 +45,7 @@ body {
     border-radius: 4px;
 }
 
-.login-button {
+.login-button, .logout-button, .user-profile, .myCart {
     width: 100%;
     padding: 10px;
     background-color: #D3A6F2;

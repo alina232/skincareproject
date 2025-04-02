@@ -65,7 +65,10 @@ exports.login = async (req, res) => {
             if (err) {
                 return res.status(500).json({ message: "Session saving failed" });
             }
-            res.redirect('/');
+            res.json({ 
+                success: true, 
+                redirectUrl: "/"  
+            });
         });
         
     } catch (error) {
