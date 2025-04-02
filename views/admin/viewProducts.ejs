@@ -37,7 +37,7 @@
                     <td>$<%= product.Price %></td>
                     <td>
                         <a href="/admin/products/edit/<%= product.ProductId %>">Edit</a> | 
-                        <a href="/admin/products/delete/<%= product.ProductId %>" onclick="return confirm('Are you sure?');">Delete</a>
+                        <a href="/admin/products/delete/<%= product.ProductId %>" onclick="return confirm('Confirm to delete Product?');">Delete</a>
                     </td>
                 </tr>
             <% }); %>

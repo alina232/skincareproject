@@ -159,6 +159,26 @@ exports.updateProduct = async (req, res) => {
     });
 };
 
+// delete the product
+exports.deleteProduct = async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const deletedProduct = await Product.findOneAndDelete({ ProductId: productId });
+
+        if (!deletedProduct) {
+            return res.status(404).json({ message: "Product not found" });
+        }
+
+        res.redirect("/admin/products");
+    } catch (error) {
+        res.status(500).json({
+            message: "Error occurred while deleting the product",
+            error: error.message
+        });
+    }
+};
+
+
 
 //get all the brand list
 exports.viewBrands = async (req, res) => {

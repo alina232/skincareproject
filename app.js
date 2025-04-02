@@ -142,6 +142,8 @@ app.get('/admin/products/add', authMiddleware.checkAdmin, adminController.getPro
 app.post('/admin/products/add', authMiddleware.checkAdmin, adminController.addNewProduct);
 app.get('/admin/products/edit/:id', authMiddleware.checkAdmin, adminController.getEditProductForm);
 app.post('/admin/products/edit/:id', authMiddleware.checkAdmin, adminController.updateProduct);
+app.get('/admin/products/delete/:id', authMiddleware.checkAdmin, adminController.deleteProduct);
+
 
 app.get('/admin/brands', authMiddleware.checkAdmin, adminController.viewBrands);
 app.get('/admin/brands/add', authMiddleware.checkAdmin, adminController.getBrandForm);
