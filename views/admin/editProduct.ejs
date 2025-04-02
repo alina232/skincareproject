@@ -1,0 +1,50 @@
+<form action="/admin/products/edit/<%= product.ProductId %>" method="POST" enctype="multipart/form-data">
+    <label for="ProductId">Product ID:</label><br />
+    <input type="text" id="ProductId" name="ProductId" value="<%= product.ProductId %>" readonly /><br /><br />
+
+    <label for="ProductName">Product Name:</label><br />
+    <input type="text" id="ProductName" name="ProductName" value="<%= product.ProductName %>" required /><br /><br />
+
+    <label for="BrandID">Brand:</label><br />
+    <select id="BrandID" name="BrandID" required>
+        <% brands.forEach(brand => { %>
+            <option value="<%= brand.BrandId %>" <%= brand.BrandId === product.BrandID ? "selected" : "" %> >
+                <%= brand.BrandName %>
+            </option>
+        <% }); %>
+    </select><br /><br />
+
+    <label for="ProductTypeId">Product Type:</label><br />
+    <select id="ProductTypeId" name="ProductTypeId" required>
+        <% productTypes.forEach(type => { %>
+            <option value="<%= type.ProductTypeId %>" <%= type.ProductTypeId === product.ProductTypeId ? "selected" : "" %> >
+                <%= type.ProductTypeName %>
+            </option>
+        <% }); %>
+    </select><br /><br />
+
+    <label for="CategoryId">Category:</label><br />
+    <select id="CategoryId" name="CategoryId" required>
+        <% categories.forEach(category => { %>
+            <option value="<%= category.CategoryId %>" <%= category.CategoryId === product.CategoryId ? "selected" : "" %> >
+                <%= category.CategoryName %>
+            </option>
+        <% }); %>
+    </select><br /><br />
+
+    <label for="Details">Product Details:</label><br />
+    <textarea id="Details" name="Details" required><%= product.Details %></textarea><br /><br />
+
+    <label for="Price">Price:</label><br />
+    <input type="number" id="Price" name="Price" value="<%= product.Price %>" required /><br /><br />
+
+    <label for="CurrentImage">Current Image:</label><br />
+    <% if (product.Image) { %>
+        <img src="<%= product.Image %>" alt="Product Image" width="100" /><br />
+    <% } %>
+    
+    <label for="Image">Upload New Image:</label><br />
+    <input type="file" id="Image" name="Image" accept="image/*" /><br /><br />
+
+    <button type="submit">Update Product</button>
+</form>

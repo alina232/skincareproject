@@ -84,7 +84,32 @@ exports.addNewProduct = (req, res) => {
             await newProduct.save();
             res.redirect("/admin/products");
         } catch (error) {
-            res.status(500).json({ message: "Error occurred while adding new product", error: error.message });
+            res.status(500).json({ 
+                message: "Error occurred while adding new product", 
+                error: error.message 
+            });
         }
     });
+};
+
+
+exports.getEditProductForm = async (req,res) => {
+    try{
+        const product = await Product.findOne({ ProductId: req.params.id }).lean();
+        if(!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+        const brands = await Brand.find().lean();
+        const categories = await Category.find().lean();
+        const productTypes = await ProductType.find().lean();
+
+        res.render("admin/editProduct", { product, brands, categories, productTypes});
+    }catch(error){
+        res.status(500).json({ 
+            message: "Error occurred while fetching product details", 
+            error: error.message 
+        });
+    }
 };
