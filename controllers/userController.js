@@ -119,3 +119,51 @@ exports.getUserById = async (req,res) => {
         });
     }
 };
+
+// controllers/userController.js
+
+exports.showUpdateForm = (req, res) => {
+    const user = req.session.user;  // Get user data from the session
+    // if (!user) {
+    //       // Redirect to login if the user is not logged in
+    // }
+
+    if (req.session.user) {
+        res.render('updateUser', { user: req.session.user, user: user }); // Pass both user and brands data
+    } else {
+        return res.redirect('/login'); // Pass brands data even if user is not logged in
+    }
+    // // Render the update profile form with user data
+    // res.render('updateUser', { user: user });
+};
+
+
+
+exports.updateProfile = async (req, res) => {
+    try {
+        const { UserID } = req.session.user;  // Get user ID from session
+        const { Firstname, Lastname, Email, Address, Contact } = req.body;  // Get new data from the form
+
+        // Find the user by their UserID
+        const user = await User.findOne({ UserID });
+        
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Update user details with the new data
+        user.Firstname = Firstname;
+        user.Lastname = Lastname;
+        user.Email = Email;
+        user.Address = Address;
+        user.Contact = Contact;
+
+        // Save the updated user to the database
+        await user.save();
+
+        // Send a success message and redirect to the profile page (or another route)
+        res.redirect('/');  // Redirect to profile page after update
+    } catch (error) {
+        res.status(500).json({ message: "Error updating profile", error: error.message });
+    }
+};
