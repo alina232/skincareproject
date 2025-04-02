@@ -6,6 +6,7 @@
         <th>Brand Name</th>
         <th>Brand Details</th>
         <th>Image</th>
+        <th>Actions</th>
     </tr>
     <% if (brands && brands.length > 0) { %>
         <% brands.forEach(brand => { %>
@@ -19,6 +20,10 @@
                     <% } else { %>
                         No Image
                     <% } %>
+                </td>
+                <td>
+                    <a href="/admin/brands/edit/<%= brand.BrandId %>">Edit</a> | 
+                    <a href="" onclick="return confirm('Are you sure?');">Delete</a>
                 </td>
             </tr>
         <% }); %>

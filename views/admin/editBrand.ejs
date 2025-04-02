@@ -1,0 +1,16 @@
+<h2>Edit Brand</h2>
+<form action="/admin/brands/edit/<%= brand.BrandId %>" method="POST" enctype="multipart/form-data">
+    <label for="BrandId">Brand ID:</label>
+    <input type="text" name="BrandId" value="<%= brand.BrandId %>" disabled /><br />
+
+    <label for="BrandName">Brand Name:</label>
+    <input type="text" name="BrandName" value="<%= brand.BrandName %>" required /><br />
+
+    <label for="BrandDetails">Brand Details:</label>
+    <textarea name="BrandDetails" required><%= brand.BrandDetails %></textarea><br />
+
+    <label for="Image">Brand Image:</label>
+    <input type="file" name="Image" accept="image/*" /><br />
+
+    <button type="submit">Update Brand</button>
+</form>

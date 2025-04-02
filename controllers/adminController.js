@@ -212,3 +212,87 @@ exports.addNewBrand = (req, res) => {
         }
     });
 };
+
+
+//get edit brand page
+exports.getEditBrandForm = async (req, res) => {
+    try{
+        const brand = await Brand.findOne({ BrandId: req.params.id }).lean();
+        if(!brand) {
+            return res.status(404).json({
+                message: "Brand not found"
+            });
+        }
+        res.render("admin/editBrand", { brand });
+    }catch(error){
+        res.status(500).json({
+            message: "Error fetching the brand details",
+            error: error.message
+        });
+    }
+};
+
+//update the brand details
+exports.updateBrand = async (req, res) => {
+    req.upload.single("Image")(req,res, async (err) => {
+        if(err){
+            return res.status(500).json({
+                message: "Error uploading file",
+                error: err.message
+            });
+        }
+        try{
+
+            const { BrandName, BrandDetails } = req.body;
+            const brandId = req.params.id;
+            let updateData = {
+                BrandName,
+                BrandDetails
+            };
+
+            //check if new image is uploaded
+            if(req.file){
+                updateData.Image = `/images/${req.file.filename}`;
+            }
+
+            const updatedBrand = await Brand.findOneAndUpdate(
+                {BrandId: brandId},
+                updateData,
+                { new: true }
+            );
+
+            if(!updatedBrand) {
+                return res.status(404).json({
+                    message: "Brand not found"
+                });
+            }
+            res.redirect("/admin/brands");
+        }catch(error){
+            res.status(500).json({
+                message: "Error updating brand deetails",
+                error: error.message
+            });
+        }
+    });
+};
+
+// // delete the brand
+// exports.deleteBrand = async (req, res) => {
+//     try {
+//         const brandId = req.params.id;
+        
+//         // Delete the brand
+//         const deletedBrand = await Brand.findOneAndDelete({ BrandId: brandId });
+
+//         if (!deletedBrand) {
+//             return res.status(404).json({ message: "Brand not found" });
+//         }
+
+//         res.redirect("/admin/brands");
+//     } catch (error) {
+//         res.status(500).json({
+//             message: "Error occurred while deleting the brand",
+//             error: error.message
+//         });
+//     }
+// };
