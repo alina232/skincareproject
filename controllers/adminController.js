@@ -35,7 +35,10 @@ exports.viewProducts = async (req, res) => {
 
         res.render('admin/viewProducts', { products: populatedProducts });
     } catch (error) {
-        res.status(500).json({ message: 'Error fetching products', error: error.message });
+        res.status(500).json({ 
+            message: 'Error fetching products', 
+            error: error.message 
+        });
     }
 };
 
@@ -314,5 +317,29 @@ exports.deleteBrand = async (req, res) => {
             message: "Error occurred while deleting the brand",
             error: error.message
         });
+    }
+};
+
+
+//get all the product types list
+exports.viewProductTypes = async (req, res) => {
+    try{
+       const productTypes = await ProductType.find().lean();
+       const categories = await Promise.all(
+        productTypes.map(async (productType) => {
+            const category = await Category.findOne({ CategoryId: productType.CategoryId}).lean();
+
+            return{
+                ...productType,
+                CategoryName: category ? category.CategoryName : "Unknown Category"
+            };
+        })
+       );
+       res.render("admin/viewProductTypes", { productTypes : categories });
+    }catch(error){
+       res.status(500).json({
+           message: "Error fetching product types",
+           error: error.message
+       });
     }
 };

@@ -1,0 +1,24 @@
+<h2>Product Types List</h2>
+<a href="/admin/product-types/add">Add New Product Type</a>
+<table border="1">
+    <tr>
+        <th>Product Type ID</th>
+        <th>Category Name</th>
+        <th>Product Type Name</th>
+        <th>Description</th>
+    </tr>
+    <% if (productTypes && productTypes.length > 0) { %>
+        <% productTypes.forEach(productType => { %>
+            <tr>
+                <td><%= productType.ProductTypeId %></td>
+                <td><%= productType.CategoryName %></td>
+                <td><%= productType.ProductTypeName %></td>
+                <td><%= productType.Description %></td>
+            </tr>
+        <% }); %>
+    <% } else { %>
+        <tr>
+            <td colspan="4">No product types found.</td>
+        </tr>
+    <% } %>
+</table>

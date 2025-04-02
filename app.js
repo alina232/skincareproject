@@ -152,6 +152,10 @@ app.get('/admin/brands/edit/:id', authMiddleware.checkAdmin, adminController.get
 app.post('/admin/brands/edit/:id', authMiddleware.checkAdmin, adminController.updateBrand);
 app.get('/admin/brands/delete/:id', authMiddleware.checkAdmin, adminController.deleteBrand);
 
+
+app.get('/admin/product-types', authMiddleware.checkAdmin, adminController.viewProductTypes);
+
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
