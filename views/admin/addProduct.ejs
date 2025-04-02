@@ -5,54 +5,137 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Product</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 50px 0;
+            font-size: 2rem;
+        }
+
+        form {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #D3A6F2;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #b98ad4;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #45a049;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            form {
+                width: 90%;
+            }
+        }
+    </style>
 </head>
 <body>
 
     <h1>Add New Product</h1>
 
     <form action="/admin/products/add" method="POST" enctype="multipart/form-data">
-        <label for="ProductId">Product ID:</label><br />
-        <input type="text" id="ProductId" name="ProductId" placeholder="Enter Product ID" required /><br /><br />
-    
-        <label for="ProductName">Product Name:</label><br />
-        <input type="text" id="ProductName" name="ProductName" placeholder="Enter Product Name" required /><br /><br />
-    
-        <label for="BrandID">Brand:</label><br />
+        <label for="ProductId">Product ID:</label>
+        <input type="text" id="ProductId" name="ProductId" placeholder="Enter Product ID" required />
+
+        <label for="ProductName">Product Name:</label>
+        <input type="text" id="ProductName" name="ProductName" placeholder="Enter Product Name" required />
+
+        <label for="BrandID">Brand:</label>
         <select id="BrandID" name="BrandID" required>
             <option value="">Select a Brand</option>
             <% brands.forEach(brand => { %>
                 <option value="<%= brand.BrandId %>"><%= brand.BrandName %></option>
             <% }); %>
-        </select><br /><br />
-    
-        <label for="ProductTypeId">Product Type:</label><br />
+        </select>
+
+        <label for="ProductTypeId">Product Type:</label>
         <select id="ProductTypeId" name="ProductTypeId" required>
             <option value="">Select a Product Type</option>
             <% productTypes.forEach(type => { %>
                 <option value="<%= type.ProductTypeId %>"><%= type.ProductTypeName %></option>
             <% }); %>
-        </select><br /><br />
-    
-        <label for="CategoryId">Category:</label><br />
+        </select>
+
+        <label for="CategoryId">Category:</label>
         <select id="CategoryId" name="CategoryId" required>
             <option value="">Select a Category</option>
             <% categories.forEach(category => { %>
                 <option value="<%= category.CategoryId %>"><%= category.CategoryName %></option>
             <% }); %>
-        </select><br /><br />
-    
-        <label for="Details">Product Details:</label><br />
-        <textarea id="Details" name="Details" placeholder="Enter Product Details" required></textarea><br /><br />
-    
-        <label for="Price">Price:</label><br />
-        <input type="number" id="Price" name="Price" placeholder="Enter Price" required /><br /><br />
-    
-        <label for="Image">Product Image:</label><br />
-        <input type="file" id="Image" name="Image" accept="image/*" required /><br /><br />
-    
+        </select>
+
+        <label for="Details">Product Details:</label>
+        <textarea id="Details" name="Details" placeholder="Enter Product Details" required></textarea>
+
+        <label for="Price">Price:</label>
+        <input type="number" id="Price" name="Price" placeholder="Enter Price" required />
+
+        <label for="Image">Product Image:</label>
+        <input type="file" id="Image" name="Image" accept="image/*" required />
+
         <button type="submit">Add Product</button>
     </form>
-    
+
     <a href="/admin/products">Back to Product List</a>
 
 </body>
