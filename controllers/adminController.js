@@ -172,3 +172,43 @@ exports.viewBrands = async (req, res) => {
         });
      }
 };
+
+//get the add new brands page
+exports.getBrandForm = async (req, res) => {
+    const brands = await Brand.find().lean();
+    res.render("admin/addBrand", { brands});
+};
+
+// add the brand details in the brand db
+exports.addNewBrand = (req, res) => {
+    req.upload.single("Image")(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ message: "Error uploading file", error: err.message });
+        }
+
+        try {
+            const { BrandId, BrandName, BrandDetails } = req.body;
+
+            if (!BrandId || !BrandName || !BrandDetails) {
+                return res.status(400).json({ message: "All fields are required" });
+            }
+
+            const imagePath = req.file ? `/images/${req.file.filename}` : "";
+
+            const newBrand = new Brand({
+                BrandId,
+                BrandName,
+                BrandDetails,
+                Image: imagePath,
+            });
+
+            await newBrand.save();
+            res.redirect("/admin/brands");
+        } catch (error) {
+            res.status(500).json({ 
+                message: "Error occurred while adding new brand", 
+                error: error.message 
+            });
+        }
+    });
+};

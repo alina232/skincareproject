@@ -143,7 +143,9 @@ app.post('/admin/products/add', authMiddleware.checkAdmin, adminController.addNe
 app.get('/admin/products/edit/:id', authMiddleware.checkAdmin, adminController.getEditProductForm);
 app.post('/admin/products/edit/:id', authMiddleware.checkAdmin, adminController.updateProduct);
 
-app.get("/admin/brands", authMiddleware.checkAdmin, adminController.viewBrands);
+app.get('/admin/brands', authMiddleware.checkAdmin, adminController.viewBrands);
+app.get('/admin/brands/add', authMiddleware.checkAdmin, adminController.getBrandForm);
+app.post('/admin/brands/add', authMiddleware.checkAdmin, adminController.addNewBrand);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

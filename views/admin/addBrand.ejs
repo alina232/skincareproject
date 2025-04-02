@@ -1,0 +1,16 @@
+<h2>Add New Brand</h2>
+<form action="/admin/brands/add" method="POST" enctype="multipart/form-data">
+    <label for="BrandId">Brand ID:</label>
+    <input type="text" name="BrandId" placeholder="Enter Brand ID" required /><br />
+
+    <label for="BrandName">Brand Name:</label>
+    <input type="text" name="BrandName" placeholder="Enter Brand Name" required /><br />
+
+    <label for="BrandDetails">Brand Details:</label>
+    <textarea name="BrandDetails" placeholder="Enter Brand Details" required></textarea><br />
+
+    <label for="Image">Brand Image:</label>
+    <input type="file" name="Image" accept="image/*" /><br />
+
+    <button type="submit">Add Brand</button>
+</form>

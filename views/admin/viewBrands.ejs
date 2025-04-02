@@ -7,18 +7,24 @@
         <th>Brand Details</th>
         <th>Image</th>
     </tr>
-    <% brands.forEach(brand => { %>
+    <% if (brands && brands.length > 0) { %>
+        <% brands.forEach(brand => { %>
+            <tr>
+                <td><%= brand.BrandId %></td>
+                <td><%= brand.BrandName %></td>
+                <td><%= brand.BrandDetails %></td>
+                <td>
+                    <% if (brand.Image) { %>
+                        <img src="<%= brand.Image %>" width="100" alt="Brand Image">
+                    <% } else { %>
+                        No Image
+                    <% } %>
+                </td>
+            </tr>
+        <% }); %>
+    <% } else { %>
         <tr>
-            <td><%= brand.BrandId %></td>
-            <td><%= brand.BrandName %></td>
-            <td><%= brand.BrandDetails %></td>
-            <td>
-                <% if (brand.Image) { %>
-                    <img src="<%= brand.Image %>" width="100" alt="Brand Image">
-                <% } else { %>
-                    No Image
-                <% } %>
-            </td>
+            <td colspan="4">No brands found.</td>
         </tr>
-    <% }); %>
+    <% } %>
 </table>
