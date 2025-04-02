@@ -69,7 +69,7 @@ exports.getProductsByBrand = async (req, res) => {
         const products = await Product.find({ BrandID: brandId }); // Find products by brandId
 
         if (products.length === 0) {
-            return res.render('productListing', { message: 'No products found for this brand', brandId });
+            return res.render('productListing', {user: req.session.user || null, message: 'No products found for this brand', products:[],  brandId });
         }
 
         // Render the products on the productListing page, passing the products and brandId
@@ -226,7 +226,7 @@ exports.addReview = async (req, res) => {
         });
     }catch(error){
         res.status(500).json({
-            message: "Error adding review",
+            message: "You must be logged in to add a review",
             error: error.message
         });
     }

@@ -146,9 +146,9 @@ exports.showUpdateForm = (req, res) => {
     // }
 
     if (req.session.user) {
-        res.render('updateUser', { user: req.session.user, user: user }); // Pass both user and brands data
+        res.render('updateUser', { user: req.session.user, user: user }); 
     } else {
-        return res.redirect('/login'); // Pass brands data even if user is not logged in
+        return res.redirect('/login'); 
     }
     // // Render the update profile form with user data
     // res.render('updateUser', { user: user });
@@ -177,9 +177,8 @@ exports.updateProfile = async (req, res) => {
 
         // Save the updated user to the database
         await user.save();
-
-        // Send a success message and redirect to the profile page (or another route)
-        res.redirect('/updateUser');  // Redirect to profile page after update
+        
+        res.redirect('/updateUser'); 
     } catch (error) {
         res.status(500).json({ message: "Error updating profile", error: error.message });
     }

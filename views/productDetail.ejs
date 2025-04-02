@@ -31,7 +31,6 @@
   <%- include('header') %>
   <div class="container my-5">
     <div class="row">
-      <!-- Left side - Product Image -->
       <div class="col-md-6">
         <img src="<%= product.Image ? product.Image : '/images/banner4.jpg' %>" alt="Product Image" class="img-fluid" height="200px">
       </div>
@@ -85,7 +84,7 @@
         <% } else if (reviews && reviews.length > 0) { %>
             <% reviews.forEach(review => { %>
                 <div class="review-item border p-3 mb-2 rounded">
-                    <p class="fw-bold mb-1"><%= review.UserID || 'Anonymous' %></p>
+                    <p class="fw-bold mb-1"><%= review.UserID %></p>
                     <p><%= review.Review %></p>
                 </div>
             <% }) %>
@@ -104,57 +103,53 @@
   
   <script>
     document.getElementById("review-form").addEventListener("submit", function(event) {
-    event.preventDefault();  // Prevent the default form submission behavior
+      event.preventDefault();  // Prevent the default form submission behavior
 
-    var productId = document.getElementById("productId").value;  // Inject productId into JS from EJS template
-    var reviewText = document.getElementById("review-text").value;
+      var productId = document.getElementById("productId").value;  // Inject productId into JS from EJS template
+      var reviewText = document.getElementById("review-text").value;
 
-    console.log("Product ID:", productId);  // Log productId
-    console.log("Review Text:", reviewText);  
+      // Check if the review text is not empty
+      if (!reviewText.trim()) {
+          alert("Please enter a review.");
+          return;
+      }
 
-    // Check if the review text is not empty
-    if (!reviewText.trim()) {
-        alert("Please enter a review.");
-        return;
-    }
+      // Prepare the data to send to the server
+      var reviewData = {
+          Review: reviewText
+      };
 
-    // Prepare the data to send to the server
-    var reviewData = {
-        Review: reviewText
-    };
-
-    // Make the AJAX request to submit the review
-    fetch(`/product/${productId}/review`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(reviewData),
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-        return response.json();
-    })
-    .then(data => {
-        if (data.message === "Review added successfully") {
-            
-            alert("Review submitted successfully!");
-            location.reload();
-            // You can also append the new review to the review list dynamically, like:
-            let reviewList = document.getElementById("reviews-list");
-            let newReview = document.createElement("div");
-            newReview.classList.add("review-item", "border", "p-3", "mb-2", "rounded");
-            newReview.innerHTML = `<p class="fw-bold mb-1">Anonymous</p><p>${reviewText}</p>`;
-            reviewList.appendChild(newReview);
-        } else {
-            alert("Failed to submit review: " + data.message);
-        }
-    })
-    .catch(error => {
-        console.error("Error submitting review:", error);
-        alert("Error submitting review. Please try again.");
+      // Make the AJAX request to submit the review
+      fetch(`/product/${productId}/review`, {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(reviewData),
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error("Network response was not ok");
+          }
+          return response.json();
+      })
+      .then(data => {
+          if (data.message === "Review added successfully") {
+              
+              alert("Review submitted successfully!");
+              location.reload();
+              // Append the new review to the review list dynamically, like:
+              let reviewList = document.getElementById("reviews-list");
+              let newReview = document.createElement("div");
+              newReview.classList.add("review-item", "border", "p-3", "mb-2", "rounded");
+              newReview.innerHTML = `<p class="fw-bold mb-1">Anonymous</p><p>${reviewText}</p>`;
+              reviewList.appendChild(newReview);
+          } else {
+              alert("Failed to submit review: " + data.message);
+          }
+      })
+      .catch(error => {
+          alert("You must be logged in to add a review");
     });
 });
 
@@ -209,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Product added to cart successfully!");
                 // Optionally, update cart UI here
             } else {
-                alert(data.message || "Error adding product to cart.");
+                alert(data.message);
             }
         } catch (error) {
             alert("An error occurred while adding the product to the cart.");
@@ -217,34 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-
-    var swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      loop: true,
-      spaceBetween: 10,
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      breakpoints: {
-        640: {
-          slidesPerView: 2,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 4,
-          spaceBetween: 40,
-        },
-        1024: {
-          slidesPerView: 4,
-          spaceBetween: 50,
-        },
-      },
-    });
   </script>
 </body>
 </html>

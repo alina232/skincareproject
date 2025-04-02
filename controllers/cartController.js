@@ -46,7 +46,7 @@ exports.addItemToCart = async (req,res) => {
         });
     } catch (error) {
         res.status(500).json({ 
-            message: "Error adding product to cart", 
+            message: "You must be logged in to add to my cart", 
             error: error.message 
         });
     }
