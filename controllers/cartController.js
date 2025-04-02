@@ -41,10 +41,63 @@ exports.addItemToCart = async (req,res) => {
 
             await newCartItem.save();
         }
-        res.status(200).json({ message: "Product added to cart successfully!" });
+        res.status(200).json({ 
+            message: "Product added to cart successfully!" 
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error adding product to cart", error: error.message });
+        res.status(500).json({ 
+            message: "Error adding product to cart", 
+            error: error.message 
+        });
     }
 };
 
 
+
+//get cart items for specified user
+exports.getCartItems = async (req, res) => {
+
+    //chek if the user is logged in
+    if(!req.session || !req.session.user) {
+        return res.status(401).json({
+            message: "Please log in"
+        });
+    }
+    console.log("Session Data:", req.session.user);
+    //getting userID from session
+    const userId = req.session.user.UserID;
+    try{
+        //get the items on the cart
+        const cartItems = await Cart.find({UserID: userId}).lean(); //make a js object from the mongoose objects
+
+        if(!cartItems || cartItems.length === 0){
+            return res.status(404).json({
+                message: "No items in cart"
+            });
+        }
+
+        // Fetch product details manually using ProductId (string-based)
+        const productIds = cartItems.map(item => item.ProductId);
+        const products = await Product.find({ ProductId: { $in: productIds } }).lean();
+
+        // Merge product details with cart items
+        const cartWithProducts = cartItems.map(item => ({
+            ...item,
+            ProductDetails: products.find(prod => prod.ProductId === item.ProductId) || {}
+        }));
+
+        //calculate the total amount by adding all totalPrice
+        const totalAmount = cartItems.reduce((sum,item) => sum + (item.TotalPrice || 0), 0);
+
+        res.status(200).json({
+            message: "Cart items fetched successfully",
+            totalAmount,
+            cartItems
+        });
+    } catch(error){
+        return res.status(500).json({
+            message: "Error fetching cart items",
+            error: error.message
+        });
+    }
+};

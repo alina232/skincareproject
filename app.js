@@ -67,6 +67,7 @@ app.post('/product/:productId/review', productController.addReview);
 
 //CART
 app.post('/add', cartController.addItemToCart);
+app.get('/cart', cartController.getCartItems);
 
 //HOMEPAGE AND SEARCH
 app.get('/', (req, res) => {
