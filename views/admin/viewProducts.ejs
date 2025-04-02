@@ -4,17 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - View Products</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- Optional styling -->
+    <link rel="stylesheet" href="/css/adminView.css"> 
 </head>
 <body>
-
-    <h1>Product List</h1>
-
-    <a href="/admin/products/add">
-        <button>Add Product</button>
-    </a>
-
-    <table border="1">
+    <h1>Our Products</h1>
+    <div class="button-container">
+        <a href="/admin">
+            <button>Admin Dashboard</button>
+        </a>
+        <a href="/admin/products/add">
+            <button>Add Product</button>
+        </a>
+    </div>
+    <table>
         <thead>
             <tr>
                 <th>Product Name</th>
