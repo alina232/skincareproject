@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
+const multer = require('multer');
 const path = require("path");
 const session = require('express-session');
 const authMiddleware = require('./middlewares/auth');
@@ -16,6 +17,34 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views')); // Set the path to the views folder
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+//multer image store configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/images/');
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)); // Ensures unique file names
+    }
+});
+
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (extname && mimetype) {
+        return cb(null, true);
+    } else {
+        cb('Error: Only images are allowed!');
+    }
+};
+// Set up the multer instance with storage and file filter
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 }
+});
 
 //session middleware configuration
 app.use(session({
@@ -91,7 +120,6 @@ app.get('/register', (req, res) => {
 app.post('/signup', userController.signup);
 app.post('/login', userController.login);
 app.get('/logout', userController.logout);
-
 
 
 

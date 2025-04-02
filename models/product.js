@@ -44,6 +44,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    Image:{
+        type: String,
+        required: false
+    },
     Reviews: [reviewSchema]
 });
 
