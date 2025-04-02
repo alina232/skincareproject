@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <%- include('header') %>
+
+    <!-- Cart Header -->
+    <div class="cart-header">
+        <h2>Your Cart</h2>
+    </div>
+    
+    <div class="container">
+        <% if (cartItems.length === 0) { %>
+            <p class="no-items">Your cart is empty. Add items to your cart to proceed.</p>
+        <% } else { %>
+            <div class="row">
+                <% cartItems.forEach(item => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card cart-item-card">
+                            <div class="card-body">
+                                <!-- Display product name, price, and other details -->
+                                <% if (item.ProductDetails && item.ProductDetails.ProductName) { %>
+                                    <h5 class="product-title"><a href="/products/<%= item.ProductDetails.ProductId %>"><%= item.ProductDetails.ProductName %></h5></a>
+                                    <p class="product-price">Price: $<%= item.ProductDetails.Price %></p>
+                                <% } else { %>
+                                    <p class="product-title">Product Not Found</p>
+                                    <p>We couldn't find the details for this product.</p>
+                                <% } %>
+    
+                                <p>Quantity: <%= item.Quantity %></p>
+                                <p class="total-price">Total: $<%= item.TotalPrice %></p>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+    
+            <div class="total-section">
+                <h3>Total Price: $<%= totalAmount %></h3>
+                <button class="checkout-btn" onclick="window.location.href='/checkout'">Proceed to Checkout</button>
+            </div>
+        <% } %>
+    </div>
+    
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    </body>
+    </html>
+    

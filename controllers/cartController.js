@@ -80,20 +80,32 @@ exports.getCartItems = async (req, res) => {
         const productIds = cartItems.map(item => item.ProductId);
         const products = await Product.find({ ProductId: { $in: productIds } }).lean();
 
-        // Merge product details with cart items
-        const cartWithProducts = cartItems.map(item => ({
-            ...item,
-            ProductDetails: products.find(prod => prod.ProductId === item.ProductId) || {}
-        }));
+        console.log("Products:", products);
+        console.log("Cart Items:", cartItems);
+
+           // Merge product details with cart items
+        const cartWithProducts = cartItems.map(item => {
+            const product = products.find(prod => prod.ProductId === item.ProductId);
+            console.log('Matching product for cart item:', item.ProductId, product); // Log this for debugging
+            return {
+                ...item,
+                ProductDetails: product || {} // Ensure we get an empty object if no match is found
+            };
+        });
 
         //calculate the total amount by adding all totalPrice
         const totalAmount = cartItems.reduce((sum,item) => sum + (item.TotalPrice || 0), 0);
 
-        res.status(200).json({
-            message: "Cart items fetched successfully",
-            totalAmount,
-            cartItems
-        });
+        // res.status(200).json({
+        //     message: "Cart items fetched successfully",
+        //     totalAmount,
+        //     cartItems
+        // });
+        if (req.session.user) {
+            res.render('cart', { user: req.session.user, totalAmount: totalAmount, cartItems: cartWithProducts }); 
+        } else {
+            res.render('login'); 
+        }
     } catch(error){
         return res.status(500).json({
             message: "Error fetching cart items",
