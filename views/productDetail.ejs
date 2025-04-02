@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="/css/landing.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <title>Product Detail</title>
+  <title><%= product.ProductName %></title>
   <style>
     .review-section {
   border-top: 1px solid #ddd;
@@ -33,7 +33,7 @@
     <div class="row">
       <!-- Left side - Product Image -->
       <div class="col-md-6">
-        <img src="/images/brand-glossier.jpg" alt="Product Image" class="img-fluid" height="200px">
+        <img src="<%= product.Image ? product.Image : '/images/banner4.jpg' %>" alt="Product Image" class="img-fluid" height="200px">
       </div>
   
       <div class="col-md-6">

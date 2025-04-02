@@ -113,3 +113,39 @@ exports.getCartItems = async (req, res) => {
         });
     }
 };
+
+exports.decreaseCartItem = async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const userId = req.session.user.UserID;
+
+        // Check if user is logged in
+        if (!userId) {
+            return res.redirect("/login"); // Redirect to login if not authenticated
+        }
+
+        // Find the cart item
+        let cartItem = await Cart.findOne({ UserID: userId, ProductId: productId });
+
+        if (!cartItem) {
+            return res.redirect("/cart");
+        }
+
+        // Decrease quantity
+        cartItem.Quantity -= 1;
+        cartItem.TotalPrice = cartItem.Quantity * (await Product.findOne({ ProductId: productId })).Price;
+
+        // Remove item if quantity is 0
+        if (cartItem.Quantity <= 0) {
+            await Cart.deleteOne({ UserID: userId, ProductId: productId });
+        } else {
+            await cartItem.save();
+        }
+
+        res.redirect("/cart"); // Refresh the cart page after updating
+
+    } catch (error) {
+        console.error("Error updating cart item:", error);
+        res.redirect("/cart");
+    }
+};

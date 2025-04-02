@@ -90,6 +90,7 @@ exports.getProductsByBrand = async (req, res) => {
 
 exports.searchProducts = async (req, res) => {
   const { query } = req.query;  // Retrieve the search query from the URL
+    const user = req.session.user || null;
 
   // Check if the query is empty or undefined
   if (!query || query.trim() === "") {
@@ -111,7 +112,8 @@ exports.searchProducts = async (req, res) => {
       return res.render("searchResults", {
         message: "No products found matching your search.",
         query: query,
-        products: []
+        products: [],
+        user
       });
     }
 
@@ -139,7 +141,13 @@ exports.getProductsByCategory = async (req, res) => {
                 message: "No products found for this brand" 
             });
         }
-        res.render('productListing', { products, categoryId });
+
+        if (req.session.user) {
+            res.render('productListing', { user: req.session.user, products: products, categoryId: categoryId }); 
+        } else {
+            res.render('productListing', { user: null, products: products, categoryId: categoryId }); 
+        }
+        // res.render('productListing', { products, categoryId });
     } catch (error) {
         res.status(500).json({
             message: 'Error fetching products for the category',
