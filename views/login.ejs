@@ -13,7 +13,7 @@
             <h1>Welcome Back</h1>
             <p>Please log in to your account</p>
         </div>
-        <form class="login-form" action="/login" method="POST">
+        <form class="login-form" id="login-form" action="/login" method="POST">
             <div class="input-group">
                 <label for="Email">Email</label>
                 <input type="email" id="Email" name="Email" required />
@@ -22,11 +22,51 @@
                 <label for="Password">Password</label>
                 <input type="password" id="Password" name="Password" required />
             </div>
+            <p id="error-message" class="error-message" style="color: red; display: none;"></p>
             <button type="submit" class="login-button">Log In</button>
             <div class="footer-links">
                 <a href="/register">Create an Account</a>
             </div>
         </form>
     </div>
+
+    <script>
+        document.getElementById("login-form").addEventListener("submit", async function (event) {
+            event.preventDefault();
+    
+            const email = document.getElementById("Email").value.trim();
+            const password = document.getElementById("Password").value.trim();
+            const errorMessage = document.getElementById("error-message");
+            const loginButton = document.querySelector(".login-button");
+    
+            errorMessage.style.display = "none";
+            loginButton.disabled = true;
+            loginButton.textContent = "Logging in...";
+    
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ Email: email, Password: password }),
+                });
+    
+                const data = await response.json();
+    
+                if (data.success) {
+                    window.location.href = data.redirectUrl; // Redirect on success
+                } else {
+                    errorMessage.textContent = data.message; // Display error message
+                    errorMessage.style.display = "block";
+                }
+            } catch (error) {
+                errorMessage.textContent = "An error occurred. Please try again.";
+                errorMessage.style.display = "block";
+            }
+    
+            loginButton.disabled = false;
+            loginButton.textContent = "Log In";
+        });
+    </script>
+    
 </body>
 </html>
