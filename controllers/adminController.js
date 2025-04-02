@@ -92,7 +92,7 @@ exports.addNewProduct = (req, res) => {
     });
 };
 
-
+//get the edit product page
 exports.getEditProductForm = async (req,res) => {
     try{
         const product = await Product.findOne({ ProductId: req.params.id }).lean();
@@ -112,4 +112,49 @@ exports.getEditProductForm = async (req,res) => {
             error: error.message 
         });
     }
+};
+
+//update the product details
+exports.updateProduct = async (req, res) => {
+    req.upload.single("Image")(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ 
+                message: "Error uploading file", 
+                error: err.message 
+            });
+        }
+
+        try {
+            const { ProductName, BrandID, ProductTypeId, CategoryId, Details, Price } = req.body;
+            const productId = req.params.id;
+
+            let updateData = {
+                ProductName,
+                BrandID,
+                ProductTypeId,
+                CategoryId,
+                Details,
+                Price,
+            };
+
+            // If a new image was uploaded, update image path
+            if (req.file) {
+                updateData.Image = `/images/${req.file.filename}`;
+            }
+
+            const updatedProduct = await Product.findOneAndUpdate(
+                { ProductId: productId },
+                updateData,
+                { new: true }
+            );
+
+            if (!updatedProduct) {
+                return res.status(404).json({ message: "Product not found" });
+            }
+
+            res.redirect("/admin/products");
+        } catch (error) {
+            res.status(500).json({ message: "Error updating product", error: error.message });
+        }
+    });
 };
