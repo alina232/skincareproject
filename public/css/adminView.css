@@ -1,83 +1,44 @@
 body {
     font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
     background-color: #f8f8f8;
-    color: #333;
-}
-
-h1 {
     text-align: center;
-    font-size: 2rem;
-}
+  }
 
-.button-container {
+  #hero-section h1 {
+    padding: 50px 0;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+
+  .container {
+    background-color: #f0f0f0;
+    padding: 50px 0;
+  }
+
+  .admin-list {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 20px;
-    margin-bottom: 30px;
-}
+  }
 
-button {
+  .admin-button {
+    width: 200px;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 500;
     background-color: #D3A6F2;
     border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: 600;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s ease;
     color: white;
-}
+  }
 
-button:hover {
+  .admin-button:hover {
     background-color: #b98ad4;
-}
+  }
 
-a {
+  .admin-link {
     text-decoration: none;
-}
-
-table {
-    width: 90%;
-    margin: 0 auto;
-    border-collapse: collapse;
-    background-color: #fff;
-}
-
-table th, table td {
-    padding: 15px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-
-table th {
-    background-color: #f2f2f2;
-}
-
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.back-link {
-    display: inline-block;
-    margin-right: 10px;
-    color: #4CAF50;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.back-link:hover {
-    color: #45a049;
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-    table {
-        width: 100%;
-    }
-    button {
-        width: 100%;
-        margin-top: 20px;
-    }
-}
+  }

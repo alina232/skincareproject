@@ -190,9 +190,7 @@ exports.addReview = async (req, res) => {
         const { Review } = req.body;
 
         if(!req.session.user || !req.session.user.UserID) {
-            return res.status(400).json({
-                message: "User is not logged in"
-            });
+            return res.render('login');
         }
 
         const UserID = req.session.user.UserID; //get user id from session
