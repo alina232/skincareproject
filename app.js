@@ -100,6 +100,10 @@ app.post('/product/:productId/review', productController.addReview);
 app.post('/add', cartController.addItemToCart);
 app.get('/cart', cartController.getCartItems);
 
+//User Profile
+app.get('/updateUser', userController.showUpdateForm);
+app.post('/updateUser', userController.updateProfile);
+
 //HOMEPAGE AND SEARCH
 app.get('/', (req, res) => {
     if (req.session.user) {
