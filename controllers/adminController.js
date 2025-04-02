@@ -276,23 +276,23 @@ exports.updateBrand = async (req, res) => {
     });
 };
 
-// // delete the brand
-// exports.deleteBrand = async (req, res) => {
-//     try {
-//         const brandId = req.params.id;
+// delete the brand
+exports.deleteBrand = async (req, res) => {
+    try {
+        const brandId = req.params.id;
         
-//         // Delete the brand
-//         const deletedBrand = await Brand.findOneAndDelete({ BrandId: brandId });
+        // Delete the brand
+        const deletedBrand = await Brand.findOneAndDelete({ BrandId: brandId });
 
-//         if (!deletedBrand) {
-//             return res.status(404).json({ message: "Brand not found" });
-//         }
+        if (!deletedBrand) {
+            return res.status(404).json({ message: "Brand not found" });
+        }
 
-//         res.redirect("/admin/brands");
-//     } catch (error) {
-//         res.status(500).json({
-//             message: "Error occurred while deleting the brand",
-//             error: error.message
-//         });
-//     }
-// };
+        res.redirect("/admin/brands");
+    } catch (error) {
+        res.status(500).json({
+            message: "Error occurred while deleting the brand",
+            error: error.message
+        });
+    }
+};

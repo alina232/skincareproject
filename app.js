@@ -148,6 +148,7 @@ app.get('/admin/brands/add', authMiddleware.checkAdmin, adminController.getBrand
 app.post('/admin/brands/add', authMiddleware.checkAdmin, adminController.addNewBrand);
 app.get('/admin/brands/edit/:id', authMiddleware.checkAdmin, adminController.getEditBrandForm);
 app.post('/admin/brands/edit/:id', authMiddleware.checkAdmin, adminController.updateBrand);
+app.get('/admin/brands/delete/:id', authMiddleware.checkAdmin, adminController.deleteBrand);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
