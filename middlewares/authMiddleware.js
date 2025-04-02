@@ -4,7 +4,7 @@ module.exports = {
         // Check if user is logged in and has the 'isAdmin' flag
         if (!req.session.user || !req.session.user.isAdmin) {
             // If not an admin, redirect to a page or send a forbidden response
-            return res.status(403).send('You must be an admin to access this page.');
+            return res.redirect("/login");
         }
 
         // If user is an admin, allow them to proceed

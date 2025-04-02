@@ -158,3 +158,17 @@ exports.updateProduct = async (req, res) => {
         }
     });
 };
+
+
+//get all the brand list
+exports.viewBrands = async (req, res) => {
+     try{
+        const brands = await Brand.find().lean();
+        res.render("admin/viewBrands", { brands });
+     }catch(error){
+        res.status(500).json({
+            message: "Error fetching brands",
+            error: error.message
+        });
+     }
+};

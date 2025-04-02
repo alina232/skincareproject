@@ -13,6 +13,10 @@ const brandSchema = new mongoose.Schema({
     BrandDetails: {
         type: String,
         required: true
+    },
+    Image: {
+        type: String,
+        required: false
     }
 });
 
