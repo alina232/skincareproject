@@ -112,6 +112,7 @@ app.post('/pay-with-visa', cartController.payWithVisa);
 //User Profile
 app.get('/updateUser', userController.showUpdateForm);
 app.post('/updateUser', userController.updateProfile);
+app.get('/profile', userController.getProfile);
 
 //HOMEPAGE AND SEARCH
 app.get('/', (req, res) => {

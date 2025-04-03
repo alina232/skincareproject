@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+  
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full page height */
+        }
+
+        .profile-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 500px;
+            text-align: center;
+        }
+
+        .profile-header h1 {
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .profile-info {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            color: black;
+            margin-bottom: 10px;
+        }
+
+        .edit-btn {
+            background-color: #D3A6F2;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        
+
+        .edit-btn:hover {
+            background-color: #b886e5;
+        }
+    </style>
+</head>
+<body>
+    <%- include('header') %>
+    <div class="container">
+      
+        <div class="profile-container">
+            <h2>Profile</h2>
+            <div class="profile-header">
+            </div>
+            <div class="profile-info">
+                <p><strong>First Name:</strong> <%= user.Firstname %></p>
+                <p><strong>Last Name:</strong> <%= user.Lastname %></p>
+                <p><strong>Email:</strong> <%= user.Email %></p>
+                <p><strong>Address:</strong> <%= user.Address %></p>
+                <p><strong>Contact:</strong> <%= user.Contact %></p>
+            </div>
+            <a href="/updateUser"><button class="edit-btn">Edit Profile</button></a>
+        </div>
+    </div>
+</body>
+</html>

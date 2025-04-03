@@ -181,9 +181,27 @@ exports.updateProfile = async (req, res) => {
 
         // Save the updated user to the database
         await user.save();
+
+        // Update session data with new user details
+        req.session.user = {
+            UserID: user.UserID,
+            Firstname: user.Firstname,
+            Lastname: user.Lastname,
+            Email: user.Email,
+            Address: user.Address,
+            Contact: user.Contact,
+            isAdmin: req.session.user.isAdmin // Keep isAdmin status
+        };
         
-        res.redirect('/updateUser'); 
+        res.redirect('/profile'); 
     } catch (error) {
         res.status(500).json({ message: "Error updating profile", error: error.message });
     }
+};
+
+exports.getProfile = (req, res) => {
+    if (!req.session.user) {
+        return res.redirect('/login'); // Redirect to login if no session
+    }
+    res.render('profile', { user: req.session.user });
 };
