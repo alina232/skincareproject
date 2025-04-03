@@ -1,0 +1,29 @@
+<form action="/admin/product-types/edit/<%= productType.ProductTypeId %>" method="POST" enctype="multipart/form-data">
+    <label for="ProductTypeId">Product Type ID:</label><br />
+    <input type="text" id="ProductTypeId" name="ProductTypeId" value="<%= productType.ProductTypeId %>" readonly /><br /><br />
+
+    <label for="ProductTypeName">Product Type Name:</label><br />
+    <input type="text" id="ProductTypeName" name="ProductTypeName" value="<%= productType.ProductTypeName %>" required /><br /><br />
+
+    <label for="CategoryId">Category:</label><br />
+    <select id="CategoryId" name="CategoryId" required>
+        <% categories.forEach(category => { %>
+            <option value="<%= category.CategoryId %>" <%= category.CategoryId === productType.CategoryId ? "selected" : "" %> >
+                <%= category.CategoryName %>
+            </option>
+        <% }); %>
+    </select><br /><br />
+
+    <label for="Description">Product Type Description:</label><br />
+    <textarea id="Description" name="Description" required><%= productType.Description %></textarea><br /><br />
+
+    <label for="CurrentImage">Current Image:</label><br />
+    <% if (productType.Image) { %>
+        <img src="<%= productType.Image %>" alt="Product Image" width="100" /><br />
+    <% } %>
+    
+    <label for="Image">Upload New Image:</label><br />
+    <input type="file" id="Image" name="Image" accept="image/*" /><br /><br />
+
+    <button type="submit">Update Product Type</button>
+</form>

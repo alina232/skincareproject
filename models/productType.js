@@ -18,6 +18,10 @@ const productTypeSchema = new mongoose.Schema({
     Description: {
         type: String,
         required: true
+    },
+    Image: {
+        type: String,
+        required: false
     }
 });
 

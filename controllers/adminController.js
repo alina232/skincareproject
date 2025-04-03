@@ -343,3 +343,138 @@ exports.viewProductTypes = async (req, res) => {
        });
     }
 };
+
+//get productType form page
+exports.getProductTypeForm = async (req, res) => {
+    try {
+        const categories = await Category.find().lean();
+        res.render("admin/addProductType", { categories });
+    } catch (error) {
+        res.status(500).json({ 
+            message: "Error loading product type form", 
+            error: error.message 
+        });
+    }
+};
+
+//add the product type details in the producttype db
+exports.addNewProductType = (req, res) => {
+    req.upload.single("Image")(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ 
+                message: "Error uploading file", 
+                error: err.message 
+            });
+        }
+
+        try {
+            const { ProductTypeId, ProductTypeName, CategoryId, Description} = req.body;
+
+            if (!ProductTypeId || !ProductTypeName || !CategoryId || !Description) {
+                return res.status(400).json({ message: "All fields are required" });
+            }
+
+            const imagePath = req.file ? `/images/${req.file.filename}` : "";
+
+            const newProductType = new ProductType({
+                ProductTypeId,
+                ProductTypeName,
+                CategoryId,
+                Description,
+                Image: imagePath,
+            });
+
+            await newProductType.save();
+            res.redirect("/admin/product-types");
+        } catch (error) {
+            res.status(500).json({ 
+                message: "Error occurred while adding new product type", 
+                error: error.message 
+            });
+        }
+    });
+};
+
+//get the edit product page
+exports.getEditProductTypeForm = async (req,res) => {
+    try{
+        const productType = await ProductType.findOne({ ProductTypeId: req.params.id }).lean();
+        if(!productType) {
+            return res.status(404).json({
+                message: "Product Type not found"
+            });
+        }
+        const categories = await Category.find().lean();
+
+        res.render("admin/editProductType", { productType, categories});
+    }catch(error){
+        res.status(500).json({ 
+            message: "Error occurred while fetching product type details", 
+            error: error.message 
+        });
+    }
+};
+
+//update the product type details
+exports.updateProductType = async (req, res) => {
+    req.upload.single("Image")(req, res, async (err) => {
+        if (err) {
+            return res.status(500).json({ 
+                message: "Error uploading file", 
+                error: err.message 
+            });
+        }
+
+        try {
+            const { ProductTypeName, CategoryId, Description } = req.body;
+            const productTypeId = req.params.id;
+
+            let updateData = {
+                ProductTypeName,
+                CategoryId,
+                Description
+            };
+
+            // If a new image was uploaded, update image path
+            if (req.file) {
+                updateData.Image = `/images/${req.file.filename}`;
+            }
+
+            const updatedProductType = await ProductType.findOneAndUpdate(
+                { ProductTypeId: productTypeId },
+                updateData,
+                { new: true }
+            );
+
+            if (!updatedProductType) {
+                return res.status(404).json({ message: "Product Type not found" });
+            }
+
+            res.redirect("/admin/product-types");
+        } catch (error) {
+            res.status(500).json({ 
+                message: "Error updating product type", 
+                error: error.message 
+            });
+        }
+    });
+};
+
+// // delete the product
+// exports.deleteProduct = async (req, res) => {
+//     try {
+//         const productId = req.params.id;
+//         const deletedProduct = await Product.findOneAndDelete({ ProductId: productId });
+
+//         if (!deletedProduct) {
+//             return res.status(404).json({ message: "Product not found" });
+//         }
+
+//         res.redirect("/admin/products");
+//     } catch (error) {
+//         res.status(500).json({
+//             message: "Error occurred while deleting the product",
+//             error: error.message
+//         });
+//     }
+// };

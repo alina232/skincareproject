@@ -137,6 +137,7 @@ app.get('/logout', userController.logout);
 
 //ADMIN ROUTES
 app.get('/admin', authMiddleware.checkAdmin, adminController.adminPanel); 
+
 app.get('/admin/products', authMiddleware.checkAdmin, adminController.viewProducts); 
 app.get('/admin/products/add', authMiddleware.checkAdmin, adminController.getProductForm);
 app.post('/admin/products/add', authMiddleware.checkAdmin, adminController.addNewProduct);
@@ -154,7 +155,10 @@ app.get('/admin/brands/delete/:id', authMiddleware.checkAdmin, adminController.d
 
 
 app.get('/admin/product-types', authMiddleware.checkAdmin, adminController.viewProductTypes);
-
+app.get('/admin/product-types/add', authMiddleware.checkAdmin, adminController.getProductTypeForm);
+app.post('/admin/product-types/add', authMiddleware.checkAdmin, adminController.addNewProductType);
+app.get('/admin/product-types/edit/:id', authMiddleware.checkAdmin, adminController.getEditProductTypeForm);
+app.post('/admin/product-types/edit/:id', authMiddleware.checkAdmin, adminController.updateProductType);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

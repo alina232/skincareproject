@@ -14,6 +14,10 @@
                 <td><%= productType.CategoryName %></td>
                 <td><%= productType.ProductTypeName %></td>
                 <td><%= productType.Description %></td>
+                <td>
+                    <a href="/admin/product-types/edit/<%= productType.ProductTypeId %>">Edit</a> | 
+                    <a href="/admin/product-types/delete/<%= productType.ProductTypeId %>" onclick="return confirm('Confirm to delete Product Type?');">Delete</a>
+                </td>
             </tr>
         <% }); %>
     <% } else { %>

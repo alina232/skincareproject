@@ -1,0 +1,27 @@
+<h1>Add New Product Type</h1>
+
+    <form action="/admin/product-types/add" method="POST" enctype="multipart/form-data">
+        <label for="ProductTypeId">Product Type ID:</label>
+        <input type="text" id="ProductTypeId" name="ProductTypeId" placeholder="Enter Product Type ID" required />
+
+        <label for="ProductTypeName">Product Type Name:</label>
+        <input type="text" id="ProductTypeName" name="ProductTypeName" placeholder="Enter Product Type Name" required />
+
+        <label for="CategoryId">Category:</label>
+        <select id="CategoryId" name="CategoryId" required>
+            <option value="">Select a Category</option>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.CategoryId %>"><%= category.CategoryName %></option>
+            <% }); %>
+        </select>
+
+        <label for="Description">Product Details:</label>
+        <textarea id="Description" name="Description" placeholder="Enter Product Type Details" required></textarea>
+
+        <label for="Image">Product Image:</label>
+        <input type="file" id="Image" name="Image" accept="image/*" required />
+
+        <button type="submit">Add Product Type</button>
+    </form>
+
+    <a href="/admin/product-types">Back to Product Type List</a>
