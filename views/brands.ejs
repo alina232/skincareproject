@@ -21,7 +21,7 @@
                 <% if (brands && brands.length > 0) { %>
                     <% brands.forEach(brand => { %>
                         <div class="grid-product">
-                            <img src="/images/brand-glossier.jpg" alt="<%= brand.BrandName %>" height="300px" width="300px">
+                            <img src="<%= brand.Image ? brand.Image : '/images/brand-glossier.jpg' %>" alt="<%= brand.BrandName %>" height="300px" width="300px">
                             <h3 class="product-title"><%= brand.BrandName %></h3>
                             <p class="product-type"><%= brand.BrandDetails %></p>
                             <a href="/brand/<%= brand.BrandId %>/products"><button id="btn-view" class="btn">View Products</button></a>
