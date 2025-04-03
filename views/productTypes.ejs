@@ -20,7 +20,7 @@
                 <% if (productTypes && productTypes.length > 0) { %>
                     <% productTypes.forEach(productType => { %>
                         <div class="grid-product">
-                            <img src="/images/brand-glossier.jpg" alt="<%= productType.ProductTypeName %>" height="300px" width="300px">
+                            <img src="<%= productType.Image ? productType.Image : '/images/brand-glossier.jpg' %>" alt="<%= productType.ProductTypeName %>" height="300px" width="300px">
                             <h3 class="product-title"><%= productType.ProductTypeName %></h3>
                             <p class="product-type"><%= productType.Description %></p>
                             <a href="/product-types/<%= productType.ProductTypeId %>/products"><button id="btn-view" class="btn">View Products</button></a>
