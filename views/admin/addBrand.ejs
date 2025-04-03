@@ -1,4 +1,8 @@
-<h2>Add New Brand</h2>
+<head>
+<link rel="stylesheet" href="/css/adminAddView.css">
+</head>
+<body>
+<h1>Add New Brand</h1>
 <form action="/admin/brands/add" method="POST" enctype="multipart/form-data">
     <label for="BrandId">Brand ID:</label>
     <input type="text" name="BrandId" placeholder="Enter Brand ID" required /><br />
@@ -14,3 +18,8 @@
 
     <button type="submit">Add Brand</button>
 </form>
+<div class="button-container">
+    <a href="/admin/brands" style="color: white; padding: 30px;"><button >Back to Brand List</button></a>
+</div>
+
+</body>
