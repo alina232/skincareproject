@@ -161,6 +161,7 @@ app.get('/admin/product-types/edit/:id', authMiddleware.checkAdmin, adminControl
 app.post('/admin/product-types/edit/:id', authMiddleware.checkAdmin, adminController.updateProductType);
 app.get('/admin/product-types/delete/:id', authMiddleware.checkAdmin, adminController.deleteProductType);
 
+app.get('/admin/categories', authMiddleware.checkAdmin, adminController.viewCategories);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

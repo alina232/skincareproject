@@ -1,0 +1,38 @@
+<head>
+    <link rel="stylesheet" href="/css/adminViewProducts.css"> 
+</head>
+<body>
+    <h1>Our Categories </h1>
+    <div class="button-container">
+        <a href="/admin">
+            <button>Admin Dashboard</button>
+        </a>
+        <a href=""><button>Add New Category</button></a>
+    </div>
+   
+    <table border="1">
+        <tr>
+            <th>Category ID</th>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+        <% if (categories && categories.length > 0) { %>
+            <% categories.forEach(category => { %>
+                <tr>
+                    <td><%= category.CategoryId %></td>
+                    <td><%= category.CategoryName %></td>
+                    <td><%= category.Description %></td>
+                    <td>
+                        <a href="">Edit</a> | 
+                        <a href="" onclick="return confirm('Confirm to delete the Category?');">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="4">No brands found.</td>
+            </tr>
+        <% } %>
+    </table>
+    </body>

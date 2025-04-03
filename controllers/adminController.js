@@ -478,3 +478,17 @@ exports.deleteProductType = async (req, res) => {
         });
     }
 };
+
+
+//get all the categories
+exports.viewCategories = async (req, res) => {
+    try{
+       const categories = await Category.find().lean();
+       res.render("admin/viewCategories", { categories });
+    }catch(error){
+       res.status(500).json({
+           message: "Error fetching category",
+           error: error.message
+       });
+    }
+};
