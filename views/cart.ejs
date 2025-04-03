@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/cart.css">
 </head>
 <body>
@@ -11,7 +12,7 @@
 
     <!-- Cart Header -->
     <div class="cart-header">
-        <h2>Your Cart</h2>
+        <h4>Your Cart</h4>
     </div>
     
     <div class="container">
@@ -25,15 +26,15 @@
                             <div class="card-body">
                                 <!-- Display product name, price, and other details -->
                                 <% if (item.ProductDetails && item.ProductDetails.ProductName) { %>
-                                    <h5 class="product-title"><a href="/products/<%= item.ProductDetails.ProductId %>"><%= item.ProductDetails.ProductName %></h5></a>
-                                    <p class="product-price">Price: $<%= item.ProductDetails.Price %></p>
+                                    <h5 class="product-title"><a href="/products/<%= item.ProductDetails.ProductId %>" style="text-decoration: none; color: black;"><%= item.ProductDetails.ProductName %></h5></a>
+                                    <p class="product-price" style="color: #D3A6F2;">Price: $<%= item.ProductDetails.Price %></p>
                                 <% } else { %>
                                     <p class="product-title">Product Not Found</p>
                                     <p>We couldn't find the details for this product.</p>
                                 <% } %>
     
-                                <p>Quantity: <%= item.Quantity %></p>
-                                <p class="total-price">Total: $<%= item.TotalPrice %></p>
+                                <p >Quantity: <%= item.Quantity %></p>
+                                <p class="total-price"  style="color: #D3A6F2;">Total: $<%= item.TotalPrice %></p>
                                 <form action="/decrease" method="POST">
                                     <input type="hidden" name="productId" value="<%= item.ProductId %>">
                                     <button type="submit" class="decrease-btn">-</button>
@@ -45,15 +46,56 @@
             </div>
     
             <div class="total-section">
-                <h3>Total Price: $<%= totalAmount %></h3>
-                <button class="checkout-btn" onclick="window.location.href='/'">Pay with Visa</button>
+                <h5>Total Price: $<%= totalAmount %></h5>
+                <button class="checkout-btn" id="payWithVisa"  style="background-color: #D3A6F2;">Pay with Visa</button>
             </div>
         <% } %>
     </div>
     
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <!-- Thank You Modal (Initially Hidden) -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="thankYouModalLabel">Thank You!</h5>
+              
+            </div>
+            <div class="modal-body">
+                Thank you for shopping with us!
+            </div>
+            <div class="modal-footer">
+                <a href="/" class="btn btn-primary">Go to Homepage</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+<!-- JavaScript to Show Modal on Button Click -->
+<script>
+    document.getElementById("payWithVisa").addEventListener("click", function () {
+    fetch('/pay-with-visa', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show confirmation modal or message
+                var thankYouModal = new bootstrap.Modal(document.getElementById("thankYouModal"));
+                thankYouModal.show();
+            } else {
+                // Display an error message (e.g., cart is empty or user is not authenticated)
+                alert(data.message);
+                if (data.message === "User not authenticated") {
+                    window.location.href = "/login"; // Redirect to login page
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error));
+});
+</script>
     </body>
     </html>
     

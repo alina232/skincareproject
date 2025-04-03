@@ -1,3 +1,8 @@
+<head>
+    <link rel="stylesheet" href="/css/adminAddView.css">
+</head>
+<body>
+    <h1>Edit Product Type</h1>
 <form action="/admin/product-types/edit/<%= productType.ProductTypeId %>" method="POST" enctype="multipart/form-data">
     <label for="ProductTypeId">Product Type ID:</label><br />
     <input type="text" id="ProductTypeId" name="ProductTypeId" value="<%= productType.ProductTypeId %>" readonly /><br /><br />
@@ -27,3 +32,4 @@
 
     <button type="submit">Update Product Type</button>
 </form>
+</body>

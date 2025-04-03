@@ -107,6 +107,7 @@ app.post('/product/:productId/review', productController.addReview);
 app.post('/add', cartController.addItemToCart);
 app.get('/cart', cartController.getCartItems);
 app.post("/decrease", cartController.decreaseCartItem);
+app.post('/pay-with-visa', cartController.payWithVisa);
 
 //User Profile
 app.get('/updateUser', userController.showUpdateForm);

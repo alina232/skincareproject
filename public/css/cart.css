@@ -39,12 +39,20 @@ body {
 .product-title {
     font-size: 1.25rem;
     font-weight: bold;
-    color: #333;
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+
+}
+
+a:active{
+    text-decoration: none;
+    color: #000;
 }
 
 .product-price,
 .total-price {
-    color: #28a745;
+    color: black;
     font-weight: bold;
     margin-top: 10px;
 }
