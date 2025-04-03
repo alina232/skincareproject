@@ -1,5 +1,6 @@
 const Cart = require('../models/cart');
 const Product = require('../models/product');
+const Order = require('../models/orders');
 
 //add items to cart
 exports.addItemToCart = async (req,res) => {
@@ -149,5 +150,50 @@ exports.decreaseCartItem = async (req, res) => {
     } catch (error) {
         console.error("Error updating cart item:", error);
         res.redirect("/cart");
+    }
+};
+
+exports.payWithVisa = async (req, res) => {
+    try {
+        // Check if the user is authenticated by verifying the session
+        const userId = req.session.user ? req.session.user.UserID : null;
+
+        if (!userId) {
+            // If not authenticated, return a 401 Unauthorized response
+            return res.status(401).json({ success: false, message: "User not authenticated" });
+        }
+
+        // Fetch cart items for the authenticated user
+        const cartItems = await Cart.find({ UserID: userId });
+
+        if (cartItems.length === 0) {
+            // If the cart is empty, return a 400 Bad Request response
+            return res.status(400).json({ success: false, message: "Cart is empty" });
+        }
+
+        // Create a new order from the cart items
+        const newOrder = new Order({
+            UserID: userId,
+            Items: cartItems.map(item => ({
+                ProductId: item.ProductId,
+                Quantity: item.Quantity,
+                TotalPrice: item.TotalPrice
+            })),
+            TotalAmount: cartItems.reduce((sum, item) => sum + item.TotalPrice, 0) // Calculate the total amount
+        });
+
+        // Save the new order to the database
+        await newOrder.save();
+
+        // After the order is placed, clear the user's cart
+        await Cart.deleteMany({ UserID: userId });
+
+        // Return a success response indicating the order was placed successfully
+        res.json({ success: true, message: "Order placed successfully" });
+
+    } catch (error) {
+        // If any error occurs during the process, log the error and return a 500 Internal Server Error response
+        console.error("Error processing order:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
