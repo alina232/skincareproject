@@ -96,11 +96,10 @@ exports.login = async (req, res) => {
     }
 };
 
-//user logout
+// User and Admin Logout
 exports.logout = (req, res) => {
-    if(req.session.user){
-        //save the details of user before destroying session
-        const loggedOutUser = req.session.user;
+    if (req.session && req.session.user) {
+        const isAdmin = req.session.user.isAdmin; // Save admin status before destroying session
 
         req.session.destroy((error) => {
             if (error) {
@@ -109,12 +108,19 @@ exports.logout = (req, res) => {
                     error: error.message 
                 });
             }
-           res.redirect('/');
+            // Redirect based on user type
+            if (isAdmin) {
+                res.redirect('/login');  // Redirect admin to login page
+            } else {
+                res.redirect('/');  // Redirect normal users to home page
+            }
         });
     } else {
-        res.render('login');
+        res.redirect('/login');  // If session doesn't exist, send to login
     }
 };
+
+
 
 //get user details by its id
 exports.getUserById = async (req,res) => {
