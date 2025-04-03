@@ -460,21 +460,21 @@ exports.updateProductType = async (req, res) => {
     });
 };
 
-// // delete the product
-// exports.deleteProduct = async (req, res) => {
-//     try {
-//         const productId = req.params.id;
-//         const deletedProduct = await Product.findOneAndDelete({ ProductId: productId });
+// delete the product type
+exports.deleteProductType = async (req, res) => {
+    try {
+        const productTypeId = req.params.id;
+        const deletedProductType = await ProductType.findOneAndDelete({ ProductTypeId: productTypeId });
 
-//         if (!deletedProduct) {
-//             return res.status(404).json({ message: "Product not found" });
-//         }
+        if (!deletedProductType) {
+            return res.status(404).json({ message: "Product Type not found" });
+        }
 
-//         res.redirect("/admin/products");
-//     } catch (error) {
-//         res.status(500).json({
-//             message: "Error occurred while deleting the product",
-//             error: error.message
-//         });
-//     }
-// };
+        res.redirect("/admin/product-types");
+    } catch (error) {
+        res.status(500).json({
+            message: "Error occurred while deleting the product type",
+            error: error.message
+        });
+    }
+};
