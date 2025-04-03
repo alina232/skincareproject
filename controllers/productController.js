@@ -133,13 +133,14 @@ exports.searchProducts = async (req, res) => {
 //get product list by category
 exports.getProductsByCategory = async (req, res) => {
     try {
-        const { categoryId } = req.params; // Extract brandId from URL params
-        const products = await Product.find({ CategoryId: categoryId }); // Find products by brandId
+        const { categoryId } = req.params; 
+        const products = await Product.find({ CategoryId: categoryId }); 
 
         if (products.length === 0) {
-            return res.status(404).json({ 
-                message: "No products found for this brand" 
-            });
+            // return res.status(404).json({ 
+            //     message: "No products found for this brand" 
+            // });
+            return res.render('productListing', {user: req.session.user || null, message: 'No products found for this brand', products:[],  categotyId });
         }
 
         if (req.session.user) {
@@ -163,9 +164,10 @@ exports.getProductsByProductType = async (req, res) => {
         const products = await Product.find({ ProductTypeId: productTypeId });
 
         if (products.length === 0) {
-            return res.status(404).json({ 
-                message: "No products found for this product type" 
-            });
+            // return res.status(404).json({ 
+            //     message: "No products found for this product type" 
+            // });
+            return res.render('productListing', {user: req.session.user || null, message: 'No products found for this brand', products:[],  productTypeId });
         }
        
 

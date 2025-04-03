@@ -96,6 +96,38 @@
       </div>
       </div>
   </div>
+
+      <!-- Added to Cart Modal (Initially Hidden) -->
+<div class="modal fade" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="thankYouModalLabel">Thank You!</h5>
+            
+          </div>
+          <div class="modal-body">
+              Added to the cart
+          </div>
+          <div class="modal-footer">
+              <a href="/cart" class="btn btn-primary">Go to My Cart</a>
+          </div>
+      </div>
+  </div>
+</div>
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-header">         
+          </div>
+          <div class="modal-body">
+              Please Login to Continue
+          </div>
+          <div class="modal-footer">
+              <a href="/login" class="btn btn-primary">Go to login</a>
+          </div>
+      </div>
+  </div>
+</div>
   
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -135,8 +167,6 @@
       })
       .then(data => {
           if (data.message === "Review added successfully") {
-              
-              alert("Review submitted successfully!");
               location.reload();
               // Append the new review to the review list dynamically, like:
               let reviewList = document.getElementById("reviews-list");
@@ -149,7 +179,8 @@
           }
       })
       .catch(error => {
-          alert("You must be logged in to add a review");
+        var userModal = new bootstrap.Modal(document.getElementById("userModal"));
+        userModal.show();
     });
 });
 
@@ -201,10 +232,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
 
             if (response.ok) {
-                alert("Product added to cart successfully!");
-                // Optionally, update cart UI here
+              var thankYouModal = new bootstrap.Modal(document.getElementById("thankYouModal"));
+              thankYouModal.show();
+                
             } else {
-                alert(data.message);
+              var userModal = new bootstrap.Modal(document.getElementById("userModal"));
+              userModal.show();
             }
         } catch (error) {
             alert("An error occurred while adding the product to the cart.");

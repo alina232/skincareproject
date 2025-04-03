@@ -165,6 +165,7 @@ app.get('/admin/product-types/delete/:id', authMiddleware.checkAdmin, adminContr
 
 app.get('/admin/categories', authMiddleware.checkAdmin, adminController.viewCategories);
 
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

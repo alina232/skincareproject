@@ -25,40 +25,40 @@
         <div class="register-header">
             <h1>Create an Account</h1>
         </div>
-        <form class="register-form" action="/signup" method="POST" onsubmit="return validateForm()">
+        <form class="register-form" action="/signup" method="POST">
             <div class="input-group">
                 <label for="Firstname">First Name</label>
-                <input type="text" id="Firstname" name="Firstname" />
+                <input type="text" id="Firstname" name="Firstname" required/>
                 <p class="error-message" id="fnameError"></p>
             </div>
             <div class="input-group">
                 <label for="Lastname">Last Name</label>
-                <input type="text" id="Lastname" name="Lastname" />
+                <input type="text" id="Lastname" name="Lastname" required/>
                 <p class="error-message" id="lnameError"></p>
             </div>
             <div class="input-group">
                 <label for="Email">Email</label>
-                <input type="email" id="Email" name="Email" />
+                <input type="email" id="Email" name="Email" required/>
                 <p class="error-message" id="emailError"></p>
             </div>
             <div class="input-group">
                 <label for="Password">Password</label>
-                <input type="password" id="Password" name="Password" />
+                <input type="password" id="Password" name="Password" required/>
                 <p class="error-message" id="passwordError"></p>
             </div>
             <div class="input-group">
                 <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" />
+                <input type="password" id="confirm-password" name="confirm-password" required/>
                 <p class="error-message" id="confirmPasswordError"></p>
             </div>
             <div class="input-group">
                 <label for="Address">Address</label>
-                <input type="text" id="Address" name="Address" />
+                <input type="text" id="Address" name="Address" required/>
                 <p class="error-message" id="addressError"></p>
             </div>
             <div class="input-group">
                 <label for="Contact">Contact</label>
-                <input type="text" id="Contact" name="Contact" />
+                <input type="text" id="Contact" name="Contact" required/>
                 <p class="error-message" id="contactError"></p>
             </div>
             <button type="submit" class="register-button">Register</button>
@@ -68,6 +68,79 @@
         </form>
     </div>
 
-    <script src="/js/register.js"></script>
+  
+<script>
+    document.querySelector(".register-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+    let isValid = true;
+
+    // Get form elements
+    const Firstname = document.getElementById("Firstname");
+    const Lastname = document.getElementById("Lastname");
+    const Email = document.getElementById("Email");
+    const Password = document.getElementById("Password");
+    const confirmPassword = document.getElementById("confirm-password");
+    const Address = document.getElementById("Address");
+    const Contact = document.getElementById("Contact");
+
+    // Clear previous error messages
+    document.querySelectorAll(".error-message").forEach(el => el.innerText = "");
+
+    // Validate First Name
+    if (Firstname.value.trim() === "") {
+        showError(Firstname, "First name is required");
+        isValid = false;
+    }
+
+    // Validate Last Name
+    if (Lastname.value.trim() === "") {
+        showError(Lastname, "Last name is required");
+        isValid = false;
+    }
+
+    // Validate Email
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(Email.value.trim())) {
+        showError(Email, "Enter a valid email address");
+        isValid = false;
+    }
+
+    // Validate Password
+    if (Password.value.length < 6) {
+        showError(Password, "Password must be at least 6 characters");
+        isValid = false;
+    }
+
+    // Validate Confirm Password
+    if (confirmPassword.value !== Password.value) {
+        showError(confirmPassword, "Passwords do not match");
+        isValid = false;
+    }
+
+    // Validate Address
+    if (Address.value.trim() === "") {
+        showError(Address, "Address is required");
+        isValid = false;
+    }
+
+    // Validate Contact Number
+    const contactPattern = /^[0-9]{10}$/;
+    if (!contactPattern.test(Contact.value.trim())) {
+        showError(Contact, "Enter a valid 10-digit contact number");
+        isValid = false;
+    }
+
+    if (isValid) {
+        event.target.submit(); // Submit form if valid
+    }
+});
+
+    // Error display function
+    function showError(input, message) {
+        const errorElement = input.nextElementSibling;
+        errorElement.innerText = message;
+        errorElement.style.color = "red";
+    }
+</script>
 </body>
 </html>
