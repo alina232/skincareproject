@@ -48,12 +48,13 @@
   }
   
   .grid-product img {
-    width: 300px;
-    height: 400px;
+    width: 280px;
+    height: 300px;
   }
   
   .product-title, .product-type {
     text-align: center;
+    padding-top: 10px;
   }
   
  
