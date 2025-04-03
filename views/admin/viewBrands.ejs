@@ -1,35 +1,46 @@
-<h2>Brand List</h2>
-<a href="/admin/brands/add">Add New Brand</a>
-<table border="1">
-    <tr>
-        <th>Brand ID</th>
-        <th>Brand Name</th>
-        <th>Brand Details</th>
-        <th>Image</th>
-        <th>Actions</th>
-    </tr>
-    <% if (brands && brands.length > 0) { %>
-        <% brands.forEach(brand => { %>
-            <tr>
-                <td><%= brand.BrandId %></td>
-                <td><%= brand.BrandName %></td>
-                <td><%= brand.BrandDetails %></td>
-                <td>
-                    <% if (brand.Image) { %>
-                        <img src="<%= brand.Image %>" width="100" alt="Brand Image">
-                    <% } else { %>
-                        No Image
-                    <% } %>
-                </td>
-                <td>
-                    <a href="/admin/brands/edit/<%= brand.BrandId %>">Edit</a> | 
-                    <a href="/admin/brands/delete/<%= brand.BrandId %>" onclick="return confirm('Confirm to delete the Brand?');">Delete</a>
-                </td>
-            </tr>
-        <% }); %>
-    <% } else { %>
+<head>
+    <link rel="stylesheet" href="/css/adminViewProducts.css"> 
+</head>
+<body>
+    <h1>Our Brands </h1>
+    <div class="button-container">
+        <a href="/admin">
+            <button>Admin Dashboard</button>
+        </a>
+        <a href="/admin/brands/add"><button>Add New Brand</button></a>
+    </div>
+   
+    <table border="1">
         <tr>
-            <td colspan="4">No brands found.</td>
+            <th>Brand ID</th>
+            <th>Brand Name</th>
+            <th>Brand Details</th>
+            <th>Image</th>
+            <th>Actions</th>
         </tr>
-    <% } %>
-</table>
+        <% if (brands && brands.length > 0) { %>
+            <% brands.forEach(brand => { %>
+                <tr>
+                    <td><%= brand.BrandId %></td>
+                    <td><%= brand.BrandName %></td>
+                    <td><%= brand.BrandDetails %></td>
+                    <td>
+                        <% if (brand.Image) { %>
+                            <img src="<%= brand.Image %>" width="100" alt="Brand Image">
+                        <% } else { %>
+                            No Image
+                        <% } %>
+                    </td>
+                    <td>
+                        <a href="/admin/brands/edit/<%= brand.BrandId %>">Edit</a> | 
+                        <a href="/admin/brands/delete/<%= brand.BrandId %>" onclick="return confirm('Confirm to delete the Brand?');">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr>
+                <td colspan="4">No brands found.</td>
+            </tr>
+        <% } %>
+    </table>
+    </body>
